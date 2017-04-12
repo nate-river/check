@@ -291,7 +291,6 @@ router.use('/addStage',function(req,res,next){
     if(error){
       res.send("数据储存出现错误！！");
     }else{
-      //res.redirect('/admin/editStage');
       res.json(rows.insertId);
     }
   })
