@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>成绩查询</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/docs.css">
+    <link rel="stylesheet" href="/css/indexCss/s_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .title{
+        background-color:#108ee9 !important;
+        color: #fff;
+    }
+    .list-group-item-success{
+        background-color:#7ec2f3 !important;
+        color: unset !important;
+    }
+    .list-group-item-danger{
+        background-color: #f79992 !important;
+        color: rgb(255, 255, 255);
+    }
+    .bs-callout-info{
+        border-left-color: #108ee9 !important;
+    }
+</style>
+<body style="background-color: #ffffff;">
+
+
+<!--顶部-->
+<!--<div class="header">-->
+<!--<a href="javascript:;" class="back"></a>-->
+<!--成绩查询-->
+<!--</div>-->
+<nav class="navbar header navbar-header navbar-fixed-top text-center" style="background-color:#0E77CA;color: #fff;font-size:0.16rem;line-height: 0.5rem; " >
+    <a href="javascript:;" class="back" style="display:block;"></a>
+    成绩查询
+</nav>
+<div class="exam_online exam_test exam_score">
+    <div class="exam">
+        <h2>得<%=data[0].score*2%>分;答对<%=data[0].score%>题 。</h2>
+        <% var num=1%>
+        <%for(var i=0;i< data1.length;i++){%>
+        <%if(data1[i].type_id==1){%>
+        <div class="test" style="height: auto;" answer="<%=data1[i].correct%>">
+            <ul class="list-group option">
+                <li class="list-group-item list-group-item-info title" ><%=num++%>.<%=data1[i].about%>
+                    <%if(data1[i].imgurl){%>
+                    <%if(data1[i].imgurl!="noPicture"){%>
+                    <div class="thumbnail">
+                        <img src="<%=data1[i].imgurl%>" alt="加载失败">
+                    </div>
+                    <%}%>
+                    <%}%>
+                </li>
+                <%for(var j=0;j< data2.length;j++){%>
+                <%if(data2[j].q_id==data1[i].id){%>
+                <%if(data2[j].mark=="1"){%>
+                <%if(data3[i]=="1"){%>
+                <li class="list-group-item opt list-group-item-success"><span class="icon">A.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">A.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="2"){%>
+                <%if(data3[i]=="2"){%>
+                <li class="list-group-item opt list-group-item-success"><span class="icon">B.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">B.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="3"){%>
+                <%if(data3[i]=="3"){%>
+                <li class="list-group-item opt list-group-item-success"><span class="icon">C.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">C.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="4"){%>
+                <%if(data3[i]=="4"){%>
+                <li class="list-group-item opt list-group-item-success"><span class="icon">D.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">D.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}%>
+                <%}%>
+                <%}%>
+            </ul>
+        </div>
+        <%}else  if(data1[i].type_id==2){%>
+        <div class="test" style="height: auto;" answer="<%=data1[i].correct%>">
+            <ul class="list-group option">
+                <li class="list-group-item list-group-item-info title" ><%=num++%>.(多选题)<%=data1[i].about%>
+                    <%if(data1[i].imgurl){%>
+                    <%if(data1[i].imgurl!="noPicture"){%>
+                    <div class="thumbnail">
+                        <img src="<%=data1[i].imgurl%>" alt="加载失败">
+                    </div>
+                    <%}%>
+                    <%}%>
+                </li>
+                <%var arr1=data3[i].split(";")%>
+                <%for(var j=0;j< data2.length;j++){%>
+                <%if(data2[j].q_id==data1[i].id){%>
+
+                <%if(data2[j].mark=="1"){%>
+                <%if(sele("1")){%>
+                <li class="list-group-item opt  list-group-item-success"><span class="icon">A.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">A.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="2"){%>
+                <%if(sele("2")){%>
+                <li class="list-group-item opt  list-group-item-success"><span class="icon">B.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">B.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="3"){%>
+                <%if(sele("3")){%>
+                <li class="list-group-item opt  list-group-item-success"><span class="icon">C.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">C.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}else if(data2[j].mark=="4"){%>
+                <%if(sele("4")){%>
+                <li class="list-group-item opt  list-group-item-success"><span class="icon">D.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt"><span class="icon">D.&nbsp;</span><%=data2[j].con%></li>
+                <%}%>
+                <%}%>
+
+                <%function sele(rows){%>
+                <%for(var r in data3[i].split(";")){%>
+                <%if(rows==data3[i].split(";")[r]){%>
+                <%return true;%>
+                <%}%>
+                <%}%>
+                <%return false;%>
+                <%}%>
+
+                <%}%>
+                <%}%>
+            </ul>
+        </div>
+        <%}%>
+        <%}%>
+
+
+
+
+
+        <%for(var i=0;i< data1.length;i++){%>
+        <%if(data1[i].type_id==3){%>
+        <div class="test" style="height: auto;">
+            <ul class="list-group option">
+                <li class="list-group-item list-group-item-info title" state="2"> <%=data1[i].about%>
+                    <%if(data1[i].imgurl){%>
+                    <%if(data1[i].imgurl!="noPicture"){%>
+                    <div class="thumbnail">
+                        <img src="<%=data1[i].imgurl%>" alt="加载失败">
+                    </div>
+                    <%}%>
+                    <%}%>
+                </li>
+                <li class="list-group-item opt">
+                    <%=data3[i]%>
+                </li>
+            </ul>
+        </div>
+        <%}%>
+        <%}%>
+
+    </div>
+
+</div>
+</body>
+<script>
+    $(function(){
+        $(".navbar-header ").on("touchstart",function(){
+           window.history.go(-1);
+        })
+    })
+</script>
+</html>

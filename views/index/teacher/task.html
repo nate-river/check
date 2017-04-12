@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>作业</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+</head>
+<body>
+
+    <!--顶部-->
+    <nav class="navbar navbar-header header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+        作业
+    </nav>
+    <!--作业开始-->
+    <div class="task">
+        <div class="tests">
+
+
+            <!--未发布-->
+            <div class="list-group">
+                <a href="#" class="list-group-item active" style="background-color: #108ee9;border: 0;">
+                    未发布
+                </a>
+                <%for(var i=0;i < data.length;i++){%>
+                <%if(data[i].status=="2"){%>
+                    <a href="/teacher/showQuest/<%=data[i].id%>"  class="list-group-item" >
+                        <div class="title"><%=data[i].time%>作业</div>
+                        <div class="title_con"><%=data[i].name%></div>
+                        <%if(data[i].c_id!=""){%>
+                        <div class="class"><%=data[i].c_name%></div>
+                        <%}else{%>
+                        <div class="class">未指定班级</div>
+                        <%}%>
+                    </a>
+                <%}%>
+                <%}%>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--最新发布-->
+            <div class="list-group">
+                <a href="#" class="list-group-item active" style="background-color: #108ee9;border: 0;">
+                  最新发布
+                </a>
+                <%if(data1!=""){%>
+                <a href="/teacher/showWork/<%=data1[0].id%>"  class="list-group-item" >
+
+                    <div class="title"><%=data1[0].time%>作业</div>
+                    <div class="title_con"><%=data1[0].name%></div>
+                    <%if(data1[0].c_id!=""){%>
+                    <div class="class"><%=data1[0].c_name%></div>
+                    <%}else{%>
+                    <div class="class">未指定班级</div>
+                    <%}%>
+                    <%}%>
+                </a>
+            </div>
+
+
+
+
+            <!--已发布-->
+            <div class="list-group">
+                <a href="#" class="list-group-item active" style="background-color: #108ee9;border: 0;">
+                    已发布
+                </a>
+                <%for(var i=0;i < data.length;i++){%>
+                <%if(data[i].status=="1"){%>
+                <a href="/teacher/showWork/<%=data[i].id%>"  class="list-group-item" >
+                    <div class="title"><%=data[i].time%>作业</div>
+                    <div class="title_con"><%=data[i].name%></div>
+                    <%if(data[i].c_id!=""){%>
+                    <div class="class"><%=data[i].c_name%></div>
+                    <%}else{%>
+                    <div class="class">未指定班级</div>
+                    <%}%>
+                </a>
+                <%}%>
+                <%}%>
+            </div>
+
+
+        </div>
+    </div>
+    <!--作业结束-->
+    <!--底部-->
+    <div class="footer" style="background:#DBD5DB">
+        <a class="catalog" href="/teacher">
+            <div class="icon">
+                <img src="/img/indexImg/home_icon.png" alt="加载失败">
+            </div>
+            <div class="title checked">作业</div>
+        </a>
+        <a class="catalog" href="/teacher/task">
+            <div class="icon">
+                <img src="/img/indexImg/exam_icon.png" alt="加载失败">
+            </div>
+            <div class="title">布置作业</div>
+        </a>
+        <a class="catalog" href="/teacher/mine">
+            <div class="icon">
+                <img src="/img/indexImg/my_icon.png" alt="加载失败">
+            </div>
+            <div class="title">我</div>
+        </a>
+    </div>
+</body>
+</html>

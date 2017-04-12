@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/s_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<!--顶部-->
+<nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+   用户信息
+</nav>
+<!--内容区域-->
+<div class="my user_info">
+    <div class="my_info">
+        <span class="con">姓名</span>
+        <span class="info name"><%=data.sname%></span>
+    </div>
+    <div class="my_info">
+        <span class="con">班级</span>
+        <span class="info class"><%=data.cname%></span>
+    </div>
+    <div class="my_info">
+        <span class="con">手机号</span>
+        <span class="info tel"><%=data.phone%></span>
+    </div>
+    <a href="/login/loginUp" class="log_off">退出登录</a>
+</div>
+</body>
+<script>
+    $(function(){
+        $(".navbar-header ").on("click",function(){
+            window.history.go(-1);
+        })
+    })
+</script>
+</html>

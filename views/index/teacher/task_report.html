@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>作业报告</title>
+    <link rel="stylesheet" href="/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/swiper-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/indexJs/index.js"></script>
+</head>
+<body>
+
+
+<!--顶部-->
+<nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    作业报告
+</nav>
+<!--作业报告-->
+<div class="task task_report">
+    <div class="tests">
+        <div class="con task_title">
+            <div class="title"><%=data[0].time%>作业</div>
+            <div class="class"><%=data[0].c_name%></div>
+        </div>
+        <div class="con">
+            <a href="/teacher/workInfo/<%=data[0].id%>">
+                作业详情
+                <span><%=len%>题</span>
+                <i></i>
+            </a>
+        </div>
+        <div class="con">
+            <a href="/teacher/stuInfo/<%=data[0].id%>">
+                完成情况
+                <span><%=work%>/<%=count%></span>
+                <i></i>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

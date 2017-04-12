@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>
+    <link rel="stylesheet" href="/css/adminCss/pintuer.css">
+    <link rel="stylesheet" href="/css/adminCss/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/pintuer.js"></script>
+</head>
+<body>
+
+
+
+
+
+    <div class="panel admin-panel">
+    <div class="body-content">
+    <form method="post" class="form-x" action="">
+        <div class="padding border-bottom">
+            <a class="button border-yellow" >返回</a>
+        </div>
+        <%for(var i=0;i< data4.length;i++){%>
+        <div class="form-group" style="margin-top:20px">
+            <div class="label">
+                <label>试题主干</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" name="surl" value="<%=data4[i].about%>" attr="<%=data4[i].id%>" />
+            </div>
+        </div>
+        <%}%>
+
+
+
+        <%for(var i=0;i< data1.length;i++){%>
+        <div class="form-group">
+            <div class="label">
+                <label>选项内容<%=i+1%></label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" name="surl" value="<%=data1[i].con%>" attr="<%=data1[i].id%>" />
+            </div>
+        </div>
+        <%}%>
+
+
+        <%for(var i=0;i< data2.length;i++){%>
+        <div class="form-group">
+            <div class="label">
+                <label>解析内容</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" name="surl" value="<%=data2[i].con%>" attr="<%=data2[i].id%>" />
+            </div>
+        </div>
+        <%}%>
+
+
+        <%for(var i=0;i< data3.length;i++){%>
+        <div class="form-group">
+            <div class="label">
+                <label>试题答案</label>
+            </div>
+            <div class="field">
+                <input type="text" class="input" name="surl" value="<%=data3[i].correct%>" attr="<%=data3[i].id%>" />
+            </div>
+        </div>
+        <%}%>
+
+        <div class="form-group">
+            <div class="label">
+                <label></label>
+            </div>
+            <div class="field">
+                <input class="button bg-main icon-check-square-o" value="提交" type="button"/>
+            </div>
+        </div>
+
+    </form>
+    </div>
+    </div>
+
+
+
+</body>
+
+<script>
+    $(function(){
+        var oldval,newval;
+        $(".form-group").on("focus","input",function(){
+             oldval=$(this).val();
+        });
+        $(".form-group").on("blur","input",function(){
+            var num=$(this).parents(".form-group").index();
+            var id=$(this).attr("attr");
+            console.log(num+"---"+id)
+             newval=$(this).val();
+            console.log(newval+"---"+oldval)
+            if(newval!=oldval){
+                alert(1)
+                if(num==1){
+                    $.ajax({
+                        url:"/admin/updateQuest",
+                        type:"post",
+                        data:{id:id,val:newval},
+                        success:function(e){
+                            alert(e);
+                        }
+                    });
+                }else if(num==2||num==3||num==4||num==5){
+                    $.ajax({
+                        url:"/admin/updateOptions",
+                        type:"post",
+                        data:{id:id,val:newval},
+                        success:function(e){
+                            alert(e);
+                        }
+                    });
+                }else if(num==6){
+                    $.ajax({
+                        url:"/admin/updateAnalysis",
+                        type:"post",
+                        data:{id:id,val:newval},
+                        success:function(e){
+                            alert(e);
+                        }
+                    });
+                }else if(num==7){
+                    $.ajax({
+                        url:"/admin/updateSolution",
+                        type:"post",
+                        data:{id:id,val:newval},
+                        success:function(e){
+                            alert(e);
+                        }
+                    });
+                }
+            }
+        })
+
+
+
+        $(".bg-main").click(function(){
+            alert("修改成功！！！");
+            location.href="/admin/editOption"
+        })
+        $(".border-bottom").click(function(){
+            window.history.go(-1);
+        })
+
+
+
+    })
+</script>
+
+
+
+</html>

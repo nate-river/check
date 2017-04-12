@@ -1,0 +1,449 @@
+@import "mixin.scss";
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@include useRem(360px);
+body {
+  font-size: 0.14rem;
+  font-family: "微软雅黑", "Helvetica";
+  color: #101010;
+  background-color: #f5f6fa;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+a:active {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+//登录页面开始
+.login_box {
+  width: 3.21rem;
+  height: 2.32rem;
+  background-color: #fff;
+  border-radius: 0.2rem;
+  padding:0.16rem 0.33rem;
+  box-sizing:border-box;
+  margin: 50% auto;
+  font-size:0.14rem;
+  h3{
+    margin:0.16rem auto;
+    font-size:0.16rem;
+    text-align:center;
+  }
+  input{
+    float: right;
+    width:1.82rem;
+    height:100%;
+    border:1px solid #bbbbbb;
+    font-size:0.14rem;
+  }
+  .user,.psw,.login_btn{
+    width:100%;
+    height:0.32rem;
+    margin-bottom:0.22rem;
+    line-height:0.32rem;
+  }
+  .login_btn{
+    margin-bottom: 0;
+  }
+  button{
+    height:100%;
+    width:0.79rem;
+    border-radius:0.08rem;
+    background-color:#29b6f6;
+    text-align:center;
+    border:0;
+    line-height:0.32rem;
+    color:#ffffff;
+    font-size:0.14rem;
+    font-family:"微软雅黑";
+  }
+  a.forget{
+    float:right;
+    color:#101010;
+    font-size:0.12rem;
+  }
+}
+//登录页面结束
+//header
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  width:100%;
+  height:0.38rem;
+  background-color:#29b6f6;
+  font-size:0.16rem;
+  color:#ffffff;
+  text-align:center;
+  line-height:0.38rem;
+  z-index:100;
+  a.back{
+    position:absolute;
+    left:0.12rem;
+    width:0.2rem;
+    height:100%;
+    background: transparent url("/img/indexImg/back.png") center center no-repeat;
+    background-size:100%;
+  }
+}
+//footer
+.footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  width:100%;
+  height:0.5rem;
+  z-index:100;
+  background-color: #dbd5db;
+  .catalog{
+    width:33.33%;
+    height:100%;
+    float:left;
+    .icon{
+      width:0.23rem;
+      height:0.23rem;
+      margin:0.08rem auto 0;
+      img{
+        width:100%;
+        height:100%;
+      }
+    }
+    .title{
+      width:100%;
+      text-align:center;
+      font-size:0.12rem;
+      color:#444;
+      line-height:0.19rem;
+    }
+    .checked{
+      color: #29b6f6;
+    }
+  }
+}
+//查看作业开始
+.task{
+  margin-top:0.38rem;
+  .add{
+    width:100%;
+    height:0.3rem;
+    line-height:0.3rem;
+    padding:0 0.12rem;
+    button{
+      width:0.6rem;
+      height:100%;
+      background-color:#0a6cd6;
+      color:#fff;
+      font-size:0.12rem;
+      border-radius:0.05rem;
+    }
+  }
+  .add_con{
+    padding:0 0.12rem;
+    .title{
+      width:100%;
+      height:0.4rem;
+      line-height:0.4rem;
+      font-size:0.14rem;
+      input{
+        float:right;
+        width:70%;
+        height:100%;
+        border-radius:0.05rem;
+        line-height:0.4rem;
+        font-size:0.14rem;
+      }
+    }
+    button{
+      width:0.6rem;
+      height:0.3rem;
+      background-color:#0a6cd6;
+      color:#fff;
+      font-size:0.12rem;
+      border-radius:0.05rem;
+    }
+  }
+  .tests{
+    .date{
+      padding:0 0.12rem;
+      height:0.32rem;
+      line-height:0.32rem;
+    }
+    .con{
+      width:100%;
+      border-top:1px solid #bbbbbb;
+      border-bottom:1px solid #bbbbbb;
+      background: #fff;
+      padding:0 0.12rem;
+      margin-bottom:0.1rem;
+      a{
+        display:block;
+        width:100%;
+        height:auto;
+        color:#101010;
+        .title,.title_con,.class{
+          height:0.32rem;
+          line-height:0.32rem;
+        }
+        .title_con{
+          font-size:0.16rem;
+        }
+        .class{
+          span{
+            margin-left:0.14rem;
+          }
+        }
+      }
+    }
+  }
+}
+//查看作业结束
+//作业报告开始
+.task_report{
+  margin-top:0.5rem;
+  .tests{
+    .con{
+      margin-bottom:0;
+      border-top:0;
+      height:0.5rem;
+      line-height:0.5rem;
+      position:relative;
+      span{
+        font-size:0.12rem;
+      }
+      i{
+        float: right;
+        width:0.18rem;
+        height:0.18rem;
+        background: transparent url("/img/indexImg/next.png") center center no-repeat;
+        background-size:cover;
+        position:absolute;
+        top:0;
+        right:0.12rem;
+        bottom:0;
+        margin:auto;
+      }
+    }
+    .task_title{
+      height:auto;
+      margin-top:0.2rem;
+      div{
+        height:0.28rem;
+        line-height:0.28rem;
+      }
+      div.class{
+        font-size:0.12rem;
+      }
+    }
+  }
+
+
+}
+//作业报告结束
+//作业草稿开始
+.task_draft{
+  line-height:0.32rem;
+  margin-bottom:0.55rem;
+  .choice{
+    width:100%;
+    height:0.25rem;
+    margin-bottom:0.05rem;
+    i{
+      float:right;
+      width:0.22rem;
+      height:0.22rem;
+      margin:auto;
+      background: transparent url("/img/indexImg/choice.png") center center no-repeat;
+      background-size:cover;
+    }
+    i.active{
+      background: transparent url("/img/indexImg/choice1.png") center center no-repeat;
+      background-size:cover;
+    }
+  }
+}
+.footer{
+  a.choice{
+    display:block;
+    width:2.8rem;
+    height:0.32rem;
+    background-color:#555555;
+    margin:0.09rem auto;
+    color:#fff;
+    line-height:0.32rem;
+    text-align:center;
+  }
+}
+//作业草稿结束
+//布置作业开始
+.arrange_task{
+  margin-bottom:0.6rem;
+  .con{
+    height:0.4rem;
+    line-height:0.4rem;
+    position:relative;
+    a{
+      i{
+        float: right;
+        width:0.18rem;
+        height:0.18rem;
+        background: transparent url("/img/indexImg/next.png") center center no-repeat;
+        background-size:cover;
+        position:absolute;
+        top:0;
+        right:0.12rem;
+        bottom:0;
+        margin:auto;
+      }
+    }
+  }
+}
+//布置作业结束
+//知识点试题开始
+.know_test{
+  margin-top:1rem;
+}
+.type{
+  width:100%;
+  height:0.4rem;
+  background-color:#fff;
+  border-bottom:1px solid #101010;
+  margin-bottom:0.2rem;
+  padding:0 0.12rem;
+  position:fixed;
+  top:0.38rem;
+  left:0;
+  right:0;
+  select{
+    width:2rem;
+    height:0.3rem;
+    border:1px solid #101010 !important;
+    border-radius:0.1rem;
+    margin-top:0.05rem;
+    padding:0;
+    option{
+      width:100%;
+      height:0.15rem;
+      font-size:0.14rem;
+    }
+  }
+}
+//知识点试题结束
+//试题保存/修改
+.footer1{
+  line-height:0.5rem;
+  text-align: center;
+  a{
+    display:inline-block;
+    width:1.6rem;
+    height:0.3rem;
+    border:1px solid #101010;
+    text-align:center;
+    line-height:0.3rem;
+  }
+  a.save{
+    background: #fff;
+    color:#101010;
+  }
+  a.fabu{
+    background: #29b6f6;
+    color:#fff;
+  }
+}
+//发布作业
+.test_pub{
+  .tests{
+    .con{
+      height:0.45rem;
+      a{
+        display:block;
+        height:100%;
+        .title{
+          height:100%;
+          line-height:0.45rem;
+          span{
+            float:right;
+          }
+          i{
+            float:right;
+            width:0.44rem;
+            height:100%;
+            background:url("/img/indexImg/flag_o.png") center center no-repeat;
+            background-size:100%;
+          }
+          i.close{
+            background:url("/img/indexImg/flag_c.png") center center no-repeat;
+            background-size:100%;
+          }
+        }
+      }
+    }
+  }
+  .pub{
+    display:block;
+    width:3.25rem;
+    height:0.45rem;
+    background:#29b6f6;
+    line-height:0.45rem;
+    text-align:center;
+    font-size:0.16rem;
+    color:#fff;
+    margin:0.2rem auto;
+  }
+}
+//学生完成情况
+.stu_pro{
+  background-color:#fff;
+  margin-top:0.38rem;
+  .tab{
+    width:100%;
+    height:0.42rem;
+    border-bottom:1px solid #bbbbbb;
+    line-height:0.42rem;
+    .box{
+      float:left;
+      width:50%;
+      text-align: center;
+    }
+    .box1{
+      border-bottom:1px solid #5874ef;
+    }
+  }
+  .tab_con{
+    padding:0 0.12rem;
+    width:100%;
+    box-sizing:border-box;
+    .stu{
+      height:0.45rem;
+      width:100%;
+      line-height:0.45rem;
+      position:relative;
+      border-bottom:1px solid #bbbbbb;
+      span{
+        float:right;
+        margin-right:0.3rem;
+      }
+      a{
+        width: 0.18rem;
+        height: 0.18rem;
+        background: transparent url(/img/indexImg/next.png) center center no-repeat;
+        background-size: cover;
+        position:absolute;
+        top: 0;
+        right: 0.12rem;
+        bottom:0;
+        margin: auto;
+      }
+    }
+  }
+}

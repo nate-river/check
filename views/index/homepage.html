@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="css/indexCss/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="css/indexCss/s_style.css">
+    <script src="js/indexJs/jquery.js"></script>
+    <script src="js/indexJs/swiper-3.3.1.min.js"></script>
+    <script src="js/indexJs/index.js"></script>
+</head>
+<body>
+
+    <div class="homepage">
+        <!--顶部-->
+        <div class="header">优逸客考试系统</div>
+        <!--轮播部分-->
+        <div class="banner">
+            <div class="swiper-container" id="banner" style="height: 100%;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img style="background: url('img/indexImg/banner_02.png') center center no-repeat; background-size:cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img style="background: url('img/indexImg/banner_02.png') center center no-repeat; background-size:cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img style="background: url('img/indexImg/banner_02.png') center center no-repeat; background-size:cover">
+                    </div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!--公告部分-->
+        <div class="notice">
+            <div class="title">最新公告：</div>
+            <div class="swiper-container swiper-container-vertical" id="right" style="cursor: -webkit-grab;" style="height: 0.4rem;">
+                <div class="swiper-wrapper" style="transform: translate3d(0px, -120px, 0px); transition-duration: 0ms;">
+                    <div class="swiper-slide">
+                        <a href="./exam.html">
+                            当日测试试题已经发布，注意及时答题！
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="./exam.html">
+                            您目前已进入HTML学习阶段
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="exam_line">
+            <h3>在线考试</h3>
+            <div class="exam">
+                <div class="floor">
+                    <a href="./day_exam.html">
+                        <div class="icon">
+                            <div class="info">1</div>
+                            <img src="img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">当日测试</div>
+                    </a>
+                </div>
+                <div class="floor">
+                    <a href="./week_exam.html">
+                        <div class="icon">
+                            <img src="img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">周练</div>
+                    </a>
+                </div>
+                <div class="floor">
+                    <a href="./stage_exam.html">
+                        <div class="icon">
+                            <img src="img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">阶段练习</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a class="catalog" href="#">
+                <div class="icon">
+                    <img src="img/indexImg/home_icon.png" alt="加载失败">
+                </div>
+                <div class="title checked">主页</div>
+            </a>
+            <a class="catalog" href="./exam.html">
+                <div class="icon">
+                    <img src="img/indexImg/exam_icon.png" alt="加载失败">
+                </div>
+                <div class="title">考试</div>
+            </a>
+            <a class="catalog" href="./my.html">
+                <div class="icon">
+                    <img src="img/indexImg/my_icon.png" alt="加载失败">
+                </div>
+                <div class="title">我</div>
+            </a>
+        </div>
+
+    </div>
+</body>
+</html>

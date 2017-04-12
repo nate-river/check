@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>主页</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/t_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #ffffff;">
+
+    <!--顶部-->
+    <nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+        在线考试
+    </nav>
+    <div class="exam_online">
+        <div class="exam">
+            <h2>最新试题</h2>
+            <%for(var i=0;i< data.length;i++){%>
+            <%var arr=data1.split(";")%>
+
+                <%if(judge(data[i].id)){%>
+            <div class="test">
+                <span class="date"><%=data[i].time%></span>
+                <span class="title"><%=data[i].name%></span>
+                <button><a href="/student/test/<%=data[i].id%>">开始考试</a></button>
+            </div>
+                <%}%>
+            <%}%>
+
+
+
+
+            <h2>已做试题</h2>
+            <%for(var i=0;i< data.length;i++){%>
+            <%var arr=data1.split(";")%>
+
+            <%if(judge(data[i].id)){%>
+            <%}else{%>
+            <div class="test">
+                <span class="date"><%=data[i].time%></span>
+                <span class="title"><%=data[i].name%></span>
+                <button><a href="/student/result/<%=data[i].id%>">查看成绩</a></button>
+            </div>
+                <%}%>
+            <%}%>
+
+            <%function judge(data){%>
+                <%for(var k in arr){%>
+                <%if(arr[k]==data){%>
+                <%return false%>
+                <%break%>
+                 <%}%>
+                <%}%>
+                 <%return  true%>
+            <%}%>
+
+        </div>
+
+    </div>
+    <!--底部-->
+    <div class="footer">
+        <a class="catalog" href="/student/">
+            <div class="icon">
+                <img src="/img/indexImg/home_icon2.png" alt="加载失败">
+            </div>
+            <div class="title">主页</div>
+        </a>
+        <a class="catalog" href="#">
+            <div class="icon">
+                <img src="/img/indexImg/exam_icon2.png" alt="加载失败">
+            </div>
+            <div class="title checked">考试</div>
+        </a>
+        <a class="catalog" href="/student/mine">
+            <div class="icon">
+                <img src="/img/indexImg/my_icon.png" alt="加载失败">
+            </div>
+            <div class="title">我</div>
+        </a>
+    </div>
+</body>
+</html>

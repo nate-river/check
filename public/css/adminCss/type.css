@@ -1,0 +1,23 @@
+.media-heading{
+	position: relative;
+}
+
+.media-heading .add{
+	position: absolute;
+	right:80px;
+	top:1px;
+}
+.media-heading .delete{
+	position: absolute;
+	right:1px;
+	top:1px;
+	line-height: 20px;
+}
+.media-left .suo{
+	font-size: 20px;
+	font-weight: 600;
+	line-height: 20px;
+}
+#butt{
+	height:30px;
+}

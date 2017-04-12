@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" ><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>知识点试题</title>
+    <link rel="stylesheet" href="/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .active{
+        color:green;
+    }
+</style>
+<body>
+
+<!--顶部-->
+<nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    <%=data3[0].name%>
+</nav>
+    <div class="type" style="top:0.58rem">
+        <select class="form-control select">
+            <option value="0">请选择试题类型</option>
+            <%for(var i=0; i < data2.length;i++){%>
+            <option value="<%=data2[i].id%>"><%=data2[i].name%></option>
+            <%}%>
+        </select>
+    </div>
+<!--作业开始-->
+<div class="task task_draft know_test" style="margin-top:0.85rem;">
+    <div class="tests">
+        <% var num=1%>
+        <%for(var i=0;i< data.length;i++){%>
+        <%var arr=data[i].stage_id.split(";")%>
+        <%for(var k=0;k< arr.length;k++){%>
+        <%if(arr[k]==id){%>
+        <ul class="list-group option" attr="<%=data[i].type_id%>" >
+            <li class="list-group-item list-group-item-info title"><%=num++%>.<%if(data[i].type_id=="2"){%>(多选题)<%}else if(data[i].type_id=="3"){%>(简答题)<%}%><%=data[i].about%>
+                <%if(data[i].imgurl){%>
+                <%if(data[i].imgurl!="noPicture"){%>
+                <div class="thumbnail">
+                    <img src="<%=data[i].imgurl%>" alt="加载失败">
+                </div>
+                  <%}%>
+                <%}%>
+            </li>
+            <%for(var j=0;j< data1.length;j++){%>
+            <%if(data1[j].q_id==data[i].id){%>
+            <li class="list-group-item opt"><span class="icon"><%=data1[j].mark%></span>&nbsp;<%=data1[j].con%></li>
+            <%}%>
+            <%}%>
+            <li class="list-group-item choice list-group-item-warning" style="overflow: hidden;height: 0.4rem;" ><span class="glyphicon glyphicon-ok-sign" style="font-size:0.2rem;float: right;" tid="<%=data[i].id%>"></span></li>
+        </ul>
+        <%}%>
+        <%}%>
+        <%}%>
+
+    </div>
+</div>
+<!--作业结束-->
+<!--底部-->
+<div class="footer footer1">
+    <a href="javascript:;" class="save catalog1 btn btn-primary" style="border:0;">保存稍后发布</a>
+    <a href="javascript:;" class="fabu catalog1 btn btn-default" style="border:0;">去发布</a>
+</div>
+</body>
+<script>
+    $(function () {
+        $('.know_test').on('click','.choice',function () {
+            $(this).find('span').toggleClass('active');
+            var num=$('.know_test').find('.active').length;
+            $('.footer').find('a.fabu').text('去发布[已选('+num+')]');
+        })
+
+        $(".select").change(function(){
+            var  values=$(".select").val();
+            $("ul[attr]").each(function(index,obj){
+                if(values!="0"){
+                    if($(obj).attr("attr")==values){
+                        $(obj).css("display","block");
+                    }else{
+                        $(obj).css("display","none");
+                    }
+                }else{
+                    $(obj).css("display","block");
+                }
+            })
+        });
+        //  保存修改
+        var str=[];
+
+        $(".footer .save").click(function(){
+            if($(".choice .active").length>0){
+                $(".choice .active").each(function(index,obj){
+                    str+=$(obj).attr("tid")+";";
+                });
+                var data=str.slice(0,-1);
+                $.ajax({
+                    url:"/teacher/addTask",
+                    data:{data:data},
+                    type:"post",
+                    success:function(e){
+                        if(e=="yes"){
+                            location.href="/teacher/";
+                            localStorage.removeItem("tid");
+                        }
+                    }
+                })
+            }else{
+                alert("请选择试题！！！");
+            }
+
+
+        });
+//直接发布
+        $(".footer .fabu").click(function(){
+
+
+            if($(".choice .active").length>0){
+
+                $(".choice .active").each(function(index,obj){
+                    str+=$(obj).attr("tid")+";";
+                });
+                var data=str.slice(0,-1);
+                $.ajax({
+                    url:"/teacher/diectly",
+                    data:{data:data},
+                    type:"post",
+                    success:function(e){
+                        if(e){
+                            location.href="/teacher/publish/"+e+"";
+                            localStorage.removeItem("tid");
+                        }
+                    }
+                })
+            }else{
+                alert("请选择试题！！！");
+            }
+        });
+         $(".navbar-header .back").click(function(){
+            window.history.go(-1);
+        })
+
+    })
+</script>
+</html>

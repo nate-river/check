@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/css/adminCss/pintuer.css">
+<link rel="stylesheet" href="/css/adminCss/admin.css">
+<script src="/js/adminJs/jquery.js"></script>
+<script src="/js/adminJs/pintuer.js"></script>
+<script src="/js/adminJs/jquery.validate.min.js"></script>
+<script src="/js/adminJs/teacher.js"></script>
+</head>
+<body>
+<form method="post" action="/admin/delteacherall">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 教师管理</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search">
+        <li>
+          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+        </li>
+        <ul class="search" style="padding-left:10px;">
+          <li>
+            <input type="text" placeholder="请输入搜索关键字" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+            <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a></li>
+        </ul>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr id="after">
+        <th width="120">ID</th>
+        <th>工号</th>
+        <th>教师</th>
+        <th>所带班级</th>
+        <th width="25%">创建时间</th>
+        <th width="25%">近期更新</th>
+        <th>操作</th>
+      </tr>
+      <%for(var i=0;i < data.length;i++){%>
+      <tr class="inner">
+        <td>
+          <input type="checkbox" name="id[]" value="<%=data[i].id%>" />
+          <%=i+1%>
+        </td>
+        <td><%=data[i].jobnum%></td>
+        <td><%=data[i].tname%></td>
+        <td><%=data[i].c_id%></td>
+        <td>
+          <%=data[i].addtime%>
+        </td>
+        <td><%=data[i].uptime%></td>
+        <td><div class="button-group">
+          <a class="button border-main" href="#add" onclick="return updates('<%=data[i].id%>')"><span class="icon-edit"></span> 修改</a>
+          <a class="button border-red" href="javascript:void(0)" onclick="return del('<%=data[i].id%>')"><span class="icon-trash-o"></span> 删除</a> </div>
+        </td>
+      </tr>
+      <%}%>
+      <tr>
+        <td colspan="8">
+          <div class="pagelist">
+            <a href="javascript:;" onclick="last()">上一页</a>
+            <a href="javascript:;" onclick="next()">下一页</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</form>
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span> 编辑</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" id="form" action="/admin/addteacherdata">
+      <!--工号-->
+      <div class="form-group">
+        <div class="label">
+          <label>工号：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="jobnum"/>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!--姓名-->
+      <div class="form-group">
+        <div class="label">
+          <label>姓名：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="tname" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!--密码-->
+      <div class="form-group">
+        <div class="label">
+          <label>密码：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" id="pass1" value="123456" name="pass1"/>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!--再次输入密码-->
+      <div class="form-group">
+        <div class="label">
+          <label>再次输入：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="123456" name="pass2" />
+          <div class="tips"></div>
+        </div>
+      </div>
+      <!--所带班级-->
+      <if condition="$iscid eq 1">
+        <div class="form-group">
+          <div class="label">
+            <label>班级选择：</label>
+          </div>
+          <div class="field">
+            <select name="cid" class="input w50" >
+              <option value="">请选择班级一</option>
+              <%for(var i=0;i< clas.length;i++){%>
+              <option value="<%=clas[i].id%>"><%=clas[i].cname%></option>
+              <%}%>
+            </select>
+            <div class="tips"></div>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <div class="label">
+            <label>班级选择：</label>
+          </div>
+          <div class="field">
+            <select name="cid2" class="input w50" >
+              <option value="">请选择班级二</option>
+              <%for(var i=0;i< clas.length;i++){%>
+              <option value="<%=clas[i].id%>"><%=clas[i].cname%></option>
+              <%}%>
+            </select>
+            <div class="tips"></div>
+          </div>
+
+        </div>
+      </if>
+      <!--提交-->
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <input type="hidden" value="" name="tid">
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body></html>

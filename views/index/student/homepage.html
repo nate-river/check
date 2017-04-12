@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>主页</title>
+    <link rel="stylesheet" href="/css/indexCss/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/t_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/indexJs/index.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/indexJs/swiper-3.3.1.min.js"></script>
+</head>
+<body>
+
+    <div class="homepage">
+        <!--顶部-->
+        <nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+            优逸客考试系统
+        </nav>
+        <!--轮播部分-->
+        <div class="banner">
+            <div class="swiper-container" id="banner" style="height: 100%;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img style="background: url('/img/indexImg/banner_02.png') center center no-repeat; background-size:cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img style="background: url('/img/indexImg/banner_02.png') center center no-repeat; background-size:cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img style="background: url('/img/indexImg/banner_02.png') center center no-repeat; background-size:cover">
+                    </div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+        <!--公告部分-->
+        <div class="exam_line">
+            <h3>在线考试</h3>
+            <div class="exam">
+                <div class="floor">
+                    <a href="/student/exam">
+                        <div class="icon">
+                            <div class="info">1</div>
+                            <img src="/img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">当日测试</div>
+                    </a>
+                </div>
+                <div class="floor">
+                    <a href="/student/exam">
+                        <div class="icon">
+                            <img src="/img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">周练</div>
+                    </a>
+                </div>
+                <div class="floor">
+                    <a href="/student/exam">
+                        <div class="icon">
+                            <img src="/img/indexImg/exam_icon1.png" alt="加载失败">
+                        </div>
+                        <div class="title">阶段练习</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="footer">
+            <a class="catalog" href="#">
+                <div class="icon">
+                    <img src="/img/indexImg/home_icon.png" alt="加载失败">
+                </div>
+                <div class="title checked">主页</div>
+            </a>
+            <a class="catalog" href="/student/exam">
+                <div class="icon">
+                    <img src="/img/indexImg/exam_icon.png" alt="加载失败">
+                </div>
+                <div class="title">考试</div>
+            </a>
+            <a class="catalog" href="/student/mine">
+                <div class="icon">
+                    <img src="/img/indexImg/my_icon.png" alt="加载失败">
+                </div>
+                <div class="title">我</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

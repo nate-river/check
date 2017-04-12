@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>作业</title>
+    <link rel="stylesheet" href="/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/swiper-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/indexJs/index.js"></script>
+</head>
+<body>
+
+<!--顶部-->
+<nav class="navbar navbar-header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    作业详情
+</nav>
+<!--作业开始-->
+<div class="task task_draft">
+    <div class="tests">
+        <% var num=1%>
+        <%for(var i=0;i< data.length;i++){%>
+                <ul class="list-group option">
+                    <li class="list-group-item list-group-item-info title"><%=num++%>.<%=data[i].about%>
+                        <%if(data[i].imgurl){%>
+                        <%if(data[i].imgurl!="noPicture"){%>
+                        <div class="thumbnail">
+                            <img src="<%=data[i].imgurl%>" alt="加载失败">
+                        </div>
+                        <%}%>
+                        <%}%>
+                    </li>
+                    <%for(var j=0;j< data1.length;j++){%>
+                    <%if(data1[j].q_id==data[i].id){%>
+                    <li class="list-group-item opt"><span class="icon"><%=data1[j].mark%></span><%=data1[j].con%></li>
+                    <%}%>
+                    <%}%>
+                </ul>
+        <%}%>
+    </div>
+
+</div>
+<!--作业结束-->
+</body>
+</html>

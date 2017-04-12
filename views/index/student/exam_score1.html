@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>错题整理</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/docs.css">
+    <link rel="stylesheet" href="/css/indexCss/t_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .title{
+        background-color:#108ee9 !important;
+        color: #fff;
+    }
+    .list-group-item-success{
+        background-color:#7ec2f3 !important;
+        color: unset !important;
+    }
+    .list-group-item-danger{
+        background-color: #f79992 !important;
+        color: rgb(255, 255, 255);
+    }
+    .bs-callout-info{
+        border-left-color: #108ee9 !important;
+    }
+    .choice{
+        background-color:#0E77CA!important;
+    }
+</style>
+<body style="background-color: #ffffff;">
+
+
+<!--顶部-->
+<nav class="navbar navbar-header header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    错题整理
+</nav>
+<div class="exam_online exam_test exam_score">
+    <div class="exam">
+        <%if(data3){%>
+        <% var arr=data3.split("=")%>
+        <% var parr=data4.split("?")%>
+        <% var num=1%>
+        <%for(var i=0;i< data1.length;i++){%>
+          <%var answer=arr[i].split(";")%>
+        <div class="test" style="height: auto;" answer="<%=data1[i].correct%>">
+            <ul class="list-group option">
+                <li class="list-group-item list-group-item-info title"><%=num++%>.<%=data1[i].about%>
+                    <%if(data1[i].imgurl){%>
+                    <%if(data1[i].imgurl!="noPicture"){%>
+                    <div class="thumbnail">
+                        <img src="<%=data1[i].imgurl%>" alt="加载失败">
+                    </div>
+                    <%}%>
+                    <%}%>
+                </li>
+                    <%function xun(a){%>
+                    <%for(var k in answer){%>
+                    <%if(a==answer[k]){%>
+                    <%return true;%>
+                           <%}%>
+                       <%}%>
+                    <%return false;%>
+                    <%}%>
+
+                <%for(var j=0;j< data2.length;j++){%>
+                <%if(data2[j].q_id==data1[i].id){%>
+                <%if(xun(data2[j].mark)){%>
+                <li class="list-group-item opt list-group-item-success"><span class="icon"><%=data2[j].mark%>.&nbsp;</span><%=data2[j].con%></li>
+                <%}else{%>
+                <li class="list-group-item opt">
+                    <span class="icon"><%=data2[j].mark%>.&nbsp;</span><%=data2[j].con%>
+                </li>
+                <%}%>
+                <%}%>
+                <%}%>
+            </ul>
+            <div class="bs-callout bs-callout-info" id="callout-progress-animation-css3">
+                <h4>答案解析</h4>
+
+
+
+                <p><%=parr[i]%>&nbsp;&nbsp;&nbsp;<%=data1[i].con%></p>
+            </div>
+        <%}%>
+        <%}%>
+
+
+        <!--<div class="test" style="height: auto;">-->
+            <!--<div class="title">2.HTML在线考试50题</div>-->
+            <!--<div class="option">-->
+                <!--<a href="javascript:;"><span class="icon">A</span>北非西部</a>-->
+                <!--<a href="javascript:;"><span class="icon">B</span>北非西部</a>-->
+                <!--<a href="javascript:;"><span class="icon icon-t">C</span>北非西部</a>-->
+                <!--<a href="javascript:;"><span class="icon icon-f">D</span>北非西部</a>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+
+
+    </div>
+
+</div>
+<script>
+    $(function(){
+        $(".header .back").click(function(){
+            window.history.go(-1);
+        })
+    })
+</script>
+</body>
+</html>

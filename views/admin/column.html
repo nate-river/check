@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>网站信息</title>
+    <link rel="stylesheet" href="/css/adminCss/pintuer.css">
+    <link rel="stylesheet" href="/css/adminCss/admin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/pintuer.js"></script>
+</head>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 内容列表</strong></div>
+    <table class="table table-hover text-center">
+
+
+        <%if(data==''){%>
+        <div class="padding border-bottom">
+            <a class="button border-yellow" href=""><span class="icon-plus-square-o"></span>没有数据请添加</a>
+        </div>
+        <%}else{%>
+        <tr>
+            <th width="5%">ID</th>
+            <th>类型名称</th>
+            <th>del</th>
+            <th width="250">操作</th>
+        </tr>
+        <%for(var i=0;i< data.length;i++){%>
+        <tr>
+            <td width="5%"><%=data[i].id%></td>
+            <td class="name"><input type="text" class="noe" value="<%=data[i].name%>"/></td>
+            <td><%=data[i].del%></td>
+            <td>
+                <div class="button-group">
+
+                    <a class="button border-red de" href="javascript:void(0)" onclick="return"><span class="icon-trash-o"></span> 删除</a>
+                </div>
+            </td>
+        </tr>
+        <%}%>
+        <%}%>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+<div class="panel admin-panel margin-top">
+    <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加内容</strong></div>
+    <div class="body-content">
+
+
+
+
+        <form method="post" class="form-x" action="/admin/addType">
+            <input type="hidden" name="del"  value="0" />
+            <div class="form-group">
+                <div class="label">
+                    <label>类型名称：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="name" value="" data-validate="required:请输入类型" />
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(".de").click(function(){
+        var id=$(this).closest("tr").find("td:nth-child(1)").text();
+        var tr=$(this).closest("tr");
+        console.log(id)
+        $.ajax({
+            url:'/admin/deleteType',
+            type:'post',
+            data:{id:id},
+            success:function(data){
+                console.log(data)
+                tr.remove();
+            }
+        })
+    })
+
+    //修改信息
+    $("table").on("keyup",".noe",function(){
+        var data={};
+        data.id=$(this).closest("tr").find("td:nth-child(1)").text();
+        console.log($(this).val())
+        if($(this).hasClass("noe"))
+        {
+            data.name=$(this).val();
+        }
+
+        $.ajax({
+            url:'/admin/updateType',
+            type:'post',
+            data:data,
+            success:function(r){
+                if(r["state"]=="ok")
+                {
+                    console.log("成功")
+                }
+            }
+        })
+    })
+
+</script>

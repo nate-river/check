@@ -1,0 +1,6 @@
+/*
+    /login/checklogin
+* */
+$(function(){
+
+});

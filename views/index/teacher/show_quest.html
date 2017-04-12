@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>知识点试题</title>
+    <link rel="stylesheet" href="./css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="./css/mui.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery.js"></script>
+    <script src="./js/swiper-3.3.1.min.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+<body>
+
+<!--顶部-->
+<div class="header">
+    <a href="./know_point.html" class="back"></a>
+    img标签试题内容
+</div>
+<div class="type">
+    <select>
+        <option value="1">查看全部试题</option>
+        <option value="1">单选题</option>
+        <option value="2">多选题</option>
+        <option value="3">判断题</option>
+    </select>
+</div>
+<!--作业开始-->
+<div class="task task_draft know_test">
+    <div class="tests">
+        <% var num=1%>
+        <%for(var i=0;i< data.length;i++){%>
+        <div class="con">
+            <a href="#">
+                <div class="title"><%=num++%>.<%=data[i].about%></div>
+                <div class="option">
+                    <%for(var j=0;j< data1.length;j++){%>
+                    <%if(data1[j].q_id==data[i].id){%>
+                    <div class="opt"><%=data1[i].mark%>.<%=data1[i].con%></div>
+                    <%}%>
+                    <%}%>
+                </div>
+            </a>
+        </div>
+        <%}%>
+
+
+
+
+
+
+    </div>
+</div>
+<!--作业结束-->
+<!--底部-->
+<div class="footer">
+    <a href="./test_save.html" class="choice">已选项目(0)</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>主页</title>
+    <link rel="stylesheet" href="/css/indexCss/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/s_style.css">
+    <script src="/js/indexJs/jquery.js"></script>
+    <script src="/js/indexJs/swiper-3.3.1.min.js"></script>
+    <script src="/js/indexJs/index.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #ffffff;">
+
+
+<!--顶部-->
+<nav class="navbar header navbar-header navbar-fixed-top text-center" style="background-color:#29b6f6;color: #fff;font-size:0.16rem;line-height: 0.5rem; " arr="<%=data2%>">
+    <a href="javascript:;" class="back" style="display:block;"></a>
+    HTML在线考试
+</nav>
+<div class="exam_online exam_test" exam="<%=id%>">
+    <div class="exam" quenum="<%=data.length%>">
+        <h2>共<%=data.length%>题，每题2分，总分<%=data.length*2%>分</h2>
+        <% var num=1%>
+
+        <%for(var i=0;i< data.length;i++){%>
+        <%if(data[i].type_id==1){%>
+        <div class="test" style="height: auto;" type_id="<%=data[i].type_id%>" tid="<%=data[i].id%>">
+            <ul class="list-group option" attr="<%=data[i].id%>" >
+                <li class="list-group-item list-group-item-info title" state="<%=data[i].type_id%>"><%=num++%>.(单选题)<%=data[i].about%>
+                    <%if(data[i].imgurl){%>
+                    <%if(data[i].imgurl!="noPicture"){%>
+                    <div class="thumbnail">
+                        <img src="<%=data[i].imgurl%>" alt="加载失败">
+                    </div>
+                    <%}%>
+                    <%}%>
+                </li>
+                <%for(var j=0;j< data1.length;j++){%>
+                <%if(data1[j].q_id==data[i].id){%>
+                <%if(data1[j].mark=="1"){%>
+                <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">A.&nbsp;</span><%=data1[j].con%></li>
+                <%}else if(data1[j].mark=="2"){%>
+                <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">B.&nbsp;</span><%=data1[j].con%></li>
+                <%}else if(data1[j].mark=="3"){%>
+                <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">C.&nbsp;</span><%=data1[j].con%></li>
+                <%}else if(data1[j].mark=="4"){%>
+                <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">D.&nbsp;</span><%=data1[j].con%></li>
+                <%}%>
+                <%}%>
+                <%}%>
+            </ul>
+        </div>
+        <%}else if(data[i].type_id==2){%>
+            <div class="test" style="height: auto;" type_id="<%=data[i].type_id%>" tid="<%=data[i].id%>" >
+                <ul class="list-group option" attr="<%=data[i].id%>">
+                    <li class="list-group-item list-group-item-info title" state="<%=data[i].type_id%>"><%=num++%>.(多选题)<%=data[i].about%>
+                        <%if(data[i].imgurl){%>
+                        <%if(data[i].imgurl!="noPicture"){%>
+                        <div class="thumbnail">
+                            <img src="<%=data[i].imgurl%>" alt="加载失败">
+                        </div>
+                        <%}%>
+                        <%}%>
+                    </li>
+                    <%for(var j=0;j< data1.length;j++){%>
+                    <%if(data1[j].q_id==data[i].id){%>
+                    <%if(data1[j].mark=="1"){%>
+                    <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">A.&nbsp;</span><%=data1[j].con%></li>
+                    <%}else if(data1[j].mark=="2"){%>
+                    <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">B.&nbsp;</span><%=data1[j].con%></li>
+                    <%}else if(data1[j].mark=="3"){%>
+                    <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">C.&nbsp;</span><%=data1[j].con%></li>
+                    <%}else if(data1[j].mark=="4"){%>
+                    <li class="list-group-item opt" attr="<%=data1[j].mark%>"><span class="icon">D.&nbsp;</span><%=data1[j].con%></li>
+                    <%}%>
+                    <%}%>
+                    <%}%>
+                </ul>
+            </div>
+             <%}%>
+        <%}%>
+        <%for(var i=0;i< data.length;i++){%>
+        <%if(data[i].type_id==3){%>
+        <div class="test" style="height: auto;" type_id="<%=data[i].type_id%>" tid="<%=data[i].id%>">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info title"><%=num++%>.<%=data[i].about%>(解析题)</li>
+                <li class="list-group-item opt">
+                    <textarea name="" id="cons" cols="30" rows="5"></textarea>
+                </li>
+            </ul>
+        </div>
+              <%}%>
+        <%}%>
+    </div>
+
+    <!--底部-->
+    <a href="javascript:;" class=" btn btn-primary tijiao" attr="<%=id%>"  style="display:block;margin:0 auto;">提交试卷</a>
+</div>
+</body>
+<script>
+    $(function(){
+        var data=$(".header").attr("arr");
+        var arr=data.split(";");
+        var num=0;
+
+        //选择对应选项
+        $('.exam_test .exam .list-group').on('click','li',function () {
+            var state=$(this).parents('.list-group').find('li.title').attr('state');
+            //单选题
+            if(state==1){
+                $(this).parents('.list-group').find('li').removeClass('list-group-item-success');
+                $(this).addClass('list-group-item-success');
+            }
+            //多选题
+            else if(state==2){
+                $(this).toggleClass('list-group-item-success');
+            }
+        });
+
+
+
+
+        $(".tijiao").click(function(){
+      if(confirm("你确定要提交吗？")){
+            var newarr=$(".header").attr("arr");
+            var num=0;
+            newarr=newarr.split(",");
+            var data=[];
+            for(var i=0;i<$(".test").length;i++){
+               if($(".test").eq(i).find(".list-group-item-success").length=="1"){
+                   var arr=[];
+                   arr.push($(".test").eq(i).attr("tid"))
+                   arr.push($(".test").eq(i).find(".list-group-item-success").attr("attr"));
+                   data.push(arr);
+               }else if($(".test").eq(i).find(".list-group-item-success").length>1){
+                   var arr=[];
+                   var string="";
+                   arr.push($(".test").eq(i).attr("tid"));
+                   $(".test").eq(i).find(".list-group-item-success").each(function(index,obj){
+                       string+=$(obj).attr("attr")+";"
+                   });
+                   string=string.slice(0,-1);
+                   arr.push(string);
+                   data.push(arr);
+               }else if($(".test").eq(i).find(".list-group-item-success").length=="0"){
+                    var arr=[];
+                    arr.push($(".test").eq(i).attr("tid"));
+                    arr.push($(".test").eq(i).find($("textarea")).val());
+                    data.push(arr);
+               }
+            }
+            var Nobj=[];
+            for(var j=0;j < data.length;j++){
+                var obj={};
+                obj.task_id=$(".tijiao").attr("attr");
+                obj.q_id=data[j][0];
+                obj.mark=data[j][1];
+                obj.del="0";
+                if(newarr[j]){
+                    if(data[j][1]==newarr[j]){
+                        num++;
+                        obj.whether=1;
+                    }else{
+                        obj.whether=0;
+                    }
+                }else{
+                    obj.whether="";
+                }
+                Nobj.push(obj);
+            }
+            $.ajax({
+                url:"/student/Tresult",
+                type:"post",
+                data:{data:JSON.stringify(Nobj),tid:$(".exam_online ").attr("exam"),num:num,quenum:$(".exam_online .exam").attr("quenum")},
+                success:function(data){
+                    if(data=="yes"){
+                        location.href="/student/result/"+$(".exam_online ").attr("exam")+"";
+                    }
+                }
+            });
+         }
+        });
+    });
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

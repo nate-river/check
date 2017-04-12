@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>修改密码</title>
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/indexCss/t_style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/adminJs/jquery.validate.min.js"></script>
+    <script src="/js/adminJs/teacher.js"></script>
+</head>
+<style>
+    .tishi_box{
+        display: none;
+    }
+
+</style>
+<body style="background-color:#ffffff;">
+
+
+<!--顶部-->
+<nav class="navbar navbar-header navbar-fixed-top text-center header" style="height:0.49rem;background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="cancel">取消</a>
+    修改密码
+    <a href="javascript:;" onclick="submit()" class="save">保存</a>
+</nav>
+<!--内容区域-->
+<div class="my user_psw">
+    <div class="psw new_psw">
+        <span>原始密码</span>
+        <input type="password" class="psw1" name="pass0" placeholder="包含数字和字母，不少于6位">
+    </div>
+    <div class="psw new_psw" style="margin-top:0.2rem">
+        <span>新的密码</span>
+        <input type="password" class="psw1" name="pass1" placeholder="包含数字和字母，不少于6位">
+    </div>
+    <div class="psw re_psw" style="margin-top:0.2rem" >
+        <span>重复密码</span>
+        <input type="password" class="psw2" name="pass2" placeholder="再次输入密码">
+    </div>
+</div>
+<div class="tishi_box">
+    正在修改！
+</div>
+</body>
+<script src="/js/adminJs/my_teacher.js"></script>
+</html>

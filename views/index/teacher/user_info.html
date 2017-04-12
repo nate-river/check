@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" ><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>用户信息</title>
+    <link rel="stylesheet" href="/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/t_style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/swiper-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/indexJs/index.js"></script>
+</head>
+<body>
+
+
+<!--顶部-->
+<nav class="navbar navbar-header header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    用户信息
+</nav>
+<!--内容区域-->
+<div class="my user_info">
+    <div class="my_info">
+        <span class="con">姓名</span>
+        <span class="info name"><%=data.tname%></span>
+    </div>
+    <div class="my_info">
+        <span class="con">工号</span>
+        <span class="info class"><%=data.jobnum%></span>
+    </div>
+    <div class="my_info">
+        <span class="con">所带班级</span>
+        <span class="info tel"><%=data1%></span>
+    </div>
+    <a href="/login/loginUp" class="log_off">退出登录</a>
+</div>
+</body>
+</html>

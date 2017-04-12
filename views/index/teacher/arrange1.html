@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+    <title>作业</title>
+    <link rel="stylesheet" href="/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" href="/css/indexCss/mui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.min.css">
+    <link rel="stylesheet" href="/css/indexCss/style.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/swiper-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!--顶部-->
+<nav class="navbar navbar-header header navbar-fixed-top text-center" style="background-color:#0e77ca;color: #fff;font-size:0.16rem;line-height: 0.5rem;">
+    <a href="javascript:;" class="back"></a>
+    <%=data1[0].name%>
+</nav>
+
+<!--作业开始-->
+<div class="task arrange_task">
+    <div class="tests">
+        <div class="date"></div>
+        <%for(var i=0;i < data.length;i++){%>
+        <div class="con" attr="<%=data[i].id%>">
+            <a href="javascript:;">
+                <%=data[i].name%>
+                <i></i>
+            </a>
+        </div>
+        <%}%>
+    </div>
+</div>
+<!--作业结束-->
+<!--底部-->
+</body>
+<script>
+    $(function(){
+        $(".tests").on("click",".con",function(){
+            var tid=localStorage.getItem("tid");
+            var type_id=$(this).attr("attr");
+            location.href="/teacher/rePoint/"+$(this).attr("attr")+"/"+tid+""
+        })
+            $(".navbar-header .back").click(function(){
+                window.history.go(-1);
+            })
+    })
+</script>
+</html>

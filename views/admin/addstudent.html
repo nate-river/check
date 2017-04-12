@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="/css/adminCss/pintuer.css">
+    <link rel="stylesheet" href="/css/adminCss/admin.css">
+    <script src="/js/adminJs/jquery.js"></script>
+    <script src="/js/adminJs/pintuer.js"></script>
+    <script src="/js/adminJs/jquery.validate.min.js"></script>
+    <script src="/js/adminJs/jquery.validate.min.js"></script>
+    <script src="/js/adminJs/student.js"></script>
+</head>
+<body>
+<form method="post" action="/admin/delstudentall">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 学生管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    &nbsp;<button type="button" class="button border-green" id="checkall"><span class="icon-check"></span> 全选
+                    </button>
+                    <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+                    <select name="cid" class="input w50" style="width:300px" id="check">
+                        <option value="">请选择班级</option>
+                        <%for(var i=0;i< clas.length;i++){%>
+                        <option value="<%=clas[i].cname%>"><%=clas[i].cname%></option>
+                        <%}%>
+                    </select>
+                </li>
+            </ul>
+        </div>
+
+        <table class="table table-hover text-center">
+            <tr id="after">
+                <th width="10%">ID</th>
+                <th width="10%">学号</th>
+                <th width="10%">姓名</th>
+                <th width="10%">班级</th>
+                <th width="10%">电话</th>
+                <th width="10%">入学时间</th>
+                <th width="10%">更新时间</th>
+                <th width="15%">操作</th>
+            </tr>
+            <%for(var i=0;i< stud.length;i++){%>
+            <tr class="inner">
+                <td>
+                    <input type="checkbox" name="id[]" value="<%=stud[i].id%>"/>
+                    <%=stud[i].xid%>
+                </td>
+                <td><%=stud[i].stdnum%></td>
+                <td><%=stud[i].sname%></td>
+                <td><%=stud[i].cname%></td>
+                <td><%=stud[i].phone%></td>
+                <td><%=stud[i].addtime%></td>
+                <td><%=stud[i].uptime%></td>
+                <td>
+                    <div class="button-group">
+                        <a class="button border-main" href="#add" onclick="return updates('<%=stud[i].id%>')"><span
+                                class="icon-edit"></span> 修改</a>
+                        <a class="button border-red" href="javascript:void(0)"
+                           onclick="return del('<%=stud[i].id%>')"><span class="icon-trash-o"></span> 删除</a>
+                    </div>
+                </td>
+            </tr>
+            <%}%>
+            <tr>
+                <td colspan="8">
+                    <div class="pagelist">
+                        <a href="javascript:;" onclick="last()">上一页</a>
+                        <a href="javascript:;" onclick="next()">下一页</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+<div class="panel admin-panel margin-top" id="add">
+    <div class="panel-head"><strong><span class="icon-pencil-square-o"></span> 增加内容</strong></div>
+    <div class="body-content">
+        <form method="post" class="form-x" id="form" action="/admin/addstudentdata">
+            <if condition="$iscid eq 1">
+                <div class="form-group">
+                    <div class="label">
+                        <label>班级：</label>
+                    </div>
+                    <div class="field">
+                        <select name="c_id" class="input w50">
+                            <option value="">请选择班级</option>
+                            <%for(var i=0;i< clas.length;i++){%>
+                            <option value="<%=clas[i].id%>"><%=clas[i].cname%></option>
+                            <%}%>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </if>
+            <div class="form-group">
+                <div class="label">
+                    <label>姓名：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="sname" value=""/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>电话：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="phone" value=""/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>密码：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" id="pass1" name="pass1" value=""/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="label">
+                    <label>再次输入：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" name="pass2" value=""/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input type="hidden" value="" name="sid">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

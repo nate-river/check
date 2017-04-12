@@ -1,0 +1,10 @@
+@mixin useRem($desigin-size) {
+  $device-size-list: $desigin-size,320px;
+  @each $size in $device-size-list {
+    @media screen and (min-width: #{$size}) {
+      html {
+        font-size: 100px*$size/$desigin-size;
+      }
+    }
+  }
+}

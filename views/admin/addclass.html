@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="/css/adminCss/pintuer.css">
+    <link rel="stylesheet" href="/css/adminCss/admin.css">
+    <script src="/js/adminJs/jquery.js"></script>
+    <script src="/js/adminJs/pintuer.js"></script>
+    <script src="/js/adminJs/jquery.validate.min.js"></script>
+    <script src="/js/adminJs/addclass.js"></script>
+</head>
+<style>
+    /*a  upload */
+    .a-upload {
+        padding: 4px 10px;
+        height: 40px;
+        line-height: 30px;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1
+    }
+
+    .a-upload  input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+
+    .a-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none
+    }
+
+</style>
+<body>
+<form method="post" action="/admin/delclassall">
+    <div class="panel admin-panel">
+        <div class="panel-head"><strong class="icon-reorder"> 班级管理</strong></div>
+        <div class="padding border-bottom">
+            <ul class="search">
+                <li>
+                    <button type="button" class="button border-green" id="checkall"><span class="icon-check"></span> 全选
+                    </button>
+                    <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+                </li>
+            </ul>
+        </div>
+        <table class="table table-hover text-center">
+            <tr id="after">
+                <th width="120">ID</th>
+                <th>班级</th>
+                <th>类型</th>
+                <th width="25%">创建时间</th>
+                <th width="25%">近期更新</th>
+                <th>操作</th>
+            </tr>
+            <!--插入位置-->
+            <%for(var i=0;i < data.length;i++){%>
+            <tr class="inner">
+                <td><input type="checkbox" name="id[]" value="<%=data[i].id%>"/>
+                    <%=data[i].xid%>
+                </td>
+                <td><%=data[i].cname%></td>
+                <!--<td><%=data[i].sum%></td>-->
+                <td>
+                    <%if(data[i].genre==0){%>
+                    前端
+                    <%}%>
+                    <%if(data[i].genre==1){%>
+                    UI
+                    <%}%>
+                    <%if(data[i].genre==2){%>
+                    PHP
+                    <%}%>
+                </td>
+                <td>
+                    <%=data[i].addtime%>
+                </td>
+                <td><%=data[i].uptime%></td>
+                <td>
+                    <div class="button-group">
+                        <a class="button border-main" href="#add" onclick="return updates('<%=data[i].id%>')"><span
+                                class="icon-edit"></span> 修改</a>
+                        <a class="button border-red" href="javascript:void(0)" onclick="return del('<%=data[i].id%>')">
+                            <span class="icon-trash-o"></span> 删除</a></div>
+                </td>
+            </tr>
+            <%}%>
+            <tr>
+                <td colspan="8">
+                    <div class="pagelist">
+                        <a href="javascript:;" onclick="last()">上一页</a>
+                        <a href="javascript:;" onclick="next()">下一页</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+<div class="panel admin-panel">
+    <div class="panel-head" id="add">
+        <form action="/admin/upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <select name="c_id" class="input w50">
+                    <option value="">请选择班级</option>
+                    <%for(var i=0;i< data.length;i++){%>
+                    <option value="<%=data[i].id%>"><%=data[i].cname%></option>
+                    <%}%>
+                </select>
+            </div>
+            <div class="form-group">
+                    <a href="javascript:;"  class="a-upload">点击这里上传文件
+                        <input type="file" class="form-control" id="upload" name="file" class="button bg-main icon-check-square-o">
+                    </a>
+                    <input type="submit" value="上传" class="button bg-main icon-check-square-o">
+                </div>
+        </form>
+    </div>
+    <div class="body-content">
+        <form method="post" class="form-x" action="/admin/addclassdata" id="form">
+            <!--班级-->
+            <div class="form-group">
+                <div class="label">
+                    <label>班级：</label>
+                </div>
+                <div class="field">
+                    <input type="text" class="input w50" value="" name="cname" data-validate="required:请输入班级"/>
+                    <div class="tips"></div>
+                </div>
+            </div>
+            <!--专业-->
+            <if condition="$iscid eq 1">
+                <div class="form-group">
+                    <div class="label">
+                        <label>专业：</label>
+                    </div>
+                    <div class="field">
+                        <select name="genre" class="input w50">
+                            <option value="">请选择分类</option>
+                            <option value="0">前端</option>
+                            <option value="1">UI</option>
+                            <option value="2">PHP</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </if>
+            <!--提交-->
+            <div class="form-group">
+                <div class="label">
+                    <label></label>
+                </div>
+                <div class="field">
+                    <input type="hidden" name="cid" value="">
+                    <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

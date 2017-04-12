@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="/css/adminCss/pintuer.css">
+<link rel="stylesheet" href="/css/adminCss/admin.css">
+<script src="/js/jquery.min.js"></script>
+</head>
+<style>
+  .btn{
+    border: solid 1px #2c7;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 6px 15px;
+    margin: 0;
+    display: inline-block;
+    line-height: 20px;
+  }
+  .btn input{
+    background-color:orange;
+  }
+  .a-upload {
+    padding: 4px 10px;
+    height: 40px;
+    line-height: 30px;
+    position: relative;
+    cursor: pointer;
+    color: #888;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    *display: inline;
+    *zoom: 1
+  }
+
+  .a-upload  input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer
+  }
+
+  .a-upload:hover {
+    color: #444;
+    background: #eee;
+    border-color: #ccc;
+    text-decoration: none
+  }
+</style>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增添试题</strong></div>
+  <div class="body-content">
+    <form class="form-x"  id="form1" enctype="multipart/form-data",action="javascript:" >
+      <!--试题描述-->
+      <div class="form-group">
+        <div class="label">
+          <label>试题描述：</label>
+        </div>
+        <div class="field">
+          <textarea  data-validate="required:请输入试题描述" class="input" name="con" style=" height:90px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+
+
+
+       <!--类型选择-->
+      <div class="form-group">
+        <div class="label">
+          <label>类型选择：</label>
+        </div>
+        <select  style="padding:5px 15px; border:1px solid #ddd;" name="type" class="types">
+          <option value="0">请选择试题类型</option>
+          <%for(var i=0; i< data.length;i++){%>
+          <option value="<%=data[i].id%>"><%=data[i].name%></option>
+          <%}%>
+        </select>
+      </div>
+
+
+
+      <!--边框 <input id="w1" type="checkbox" name="stage" value="1"/>-->
+      <!--浮动<input  id="w2" type="checkbox" name="stage" value="2"/>-->
+      <!--定位<input  id="w3" type="checkbox" name="stage" value="3"/>-->
+      <!--阶段选择-->
+      <div class="form-group">
+        <div class="label" style="float: none;">
+          <label>阶段选择：</label>
+        </div>
+      </div>
+      <%for(var i=0;i< data1.length;i++){%>
+      <div class="container" style="width:100%;height: auto;padding:8px 40px;">
+        <div class="left" style="width: 10%;float: left;" big="<%=data1[i].id%>">
+          <span><%=data1[i].name%></span>
+        </div>
+        <div class="right" style="width:90%;float: left;" main="<%=data1[i].id%>">
+        <%for(var j=0;j< data2.length;j++){%>
+        <%if(data1[i].id==data2[j].s_id){%>
+          <a href="javascript:;" style="padding:5px 15px; margin:0 10px 10px;" class="btn border-green"><input type="checkbox" name="stage" value="<%=data2[j].id%>" /><%=data2[j].name%></a>
+
+            <%}%>
+          <%}%>
+        </div>
+      </div>
+      <%}%>
+      <input type="hidden" value="0" name="del" class="del">
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<!--添加试题选项-->
+<div class="panel admin-panel" style="display:none" >
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加试题选项</strong></div>
+  <div class="body-content">
+    <form class="form-x"   id="form2">
+
+      <input type="hidden" value="" name="q_id" class="qid">
+      <input type="hidden" value="0" name="del" class="del">
+      <div class="padding" style="width:15%;">
+        <button type="button" class="button border-yellow"><span class="icon-plus-square-o"></span> 增加选项</button>
+      </div>
+
+      <div class="padding " style="width:15%;">
+        <button type="button" class="button border-yellow"><span class="icon-plus-square-o"></span>减少选项</button>
+      </div>
+      <div class="form-group fille">
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!--添加图片-->
+<div class="panel admin-panel">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>添加图片</strong></div>
+  <div class="body-content">
+    <form class="form-x"   id="upFile" enctype="multipart/form-data",action="javascript:" >
+      <input type="hidden" value="" name="q_id" class="qid">
+      <input type="hidden" value="0" name="del" class="del">
+      <div class="form-group">
+        <div class="label">
+          <label>添加图片：</label>
+        </div>
+        <div class="field">
+          <a href="javascript:;"  class="a-upload">点击这里上传图片
+            <input type="file" class="form-control" id="upload" name="file" class="button bg-main icon-check-square-o">
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--添加试题解析-->
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加试题解析</strong></div>
+  <div class="body-content">
+    <form class="form-x" id="form4">
+
+      <input type="hidden" value="" name="q_id" class="qid">
+      <input type="hidden" value="0" name="del" class="del">
+      <div class="form-group">
+        <div class="label">
+          <label>试题解析：</label>
+        </div>
+        <div class="field">
+          <textarea  data-validate="required:请输入试题描述" class="input" name="acon" style=" height:90px;"></textarea>
+          <div class="tips"></div>
+        </div>
+      </div>
+      <div class="form-group answered" style="display:none">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <input class="button bg-main icon-check-square-o" type="button" value="完成" attr="btn1" />
+        </div>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!--添加试题答案-->
+<div class="panel admin-panel">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加试题答案</strong></div>
+  <div class="body-content">
+    <form class="form-x" id="form3">
+
+      <input type="hidden" value="" name="q_id" class="qid"/>
+      <input type="hidden" value="0" name="del" class="del"/>
+      <div class="form-group">
+        <div class="label">
+          <label>试题答案：</label>
+        </div>
+        <div class="field">
+          正确答案A<input   type="checkbox" name="correct" value="1"/>
+          正确答案B<input   type="checkbox" name="correct" value="2"/>
+          正确答案C<input   type="checkbox" name="correct" value="3"/>
+          正确答案D<input   type="checkbox" name="correct" value="4"/>
+          正确答案E<input   type="checkbox" name="correct" value="5"/>
+          正确答案F<input   type="checkbox" name="correct" value="6"/>
+          正确答案G<input   type="checkbox" name="correct" value="7"/>
+          <!--<input type="text" class="input w50" value="" name="correct" data-validate="required:请输入试题答案" />-->
+          <div class="tips"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <input class="button bg-main icon-check-square-o" type="button" value="完成" attr="btn2"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+</body>
+
+<script>
+  $(function(){
+    var num=0;
+    $(".padding").eq(0).click(function(){
+      num++;
+      var sql=$('<div class="label">选项'+num+'<label></label></div><div class="field "><input type="text" class="input" name="content" value="" required /></div>');
+      $(sql).appendTo($(".fille"));
+    });
+    $(".padding").eq(1).click(function(){
+      if($(".fille .label:last").length!=0){
+        num--;
+        $(".fille .label:last").remove();
+        $(".fille .field:last").remove();
+      }else{
+        alert("请添加选项！！");
+      }
+
+    })
+
+
+
+
+
+    $(".types").change(function(){
+      if($(".types").val()=="1"||$(".types").val()=="2"){
+        $(".panel").eq(1).css("display","block");
+        $(".panel:last-of-type").css("display","block")
+        $(".answered").css("display","none")
+      }else if($(".types").val()=="3"){
+        $(".panel").eq(1).css("display","none");
+        $(".answered").css("display","block");
+        $(".panel:last-of-type").css("display","none")
+      }else if($(".types").val()=="0"){
+        $(".panel").eq(1).css("display","block");
+        $(".panel:last-of-type").css("display","block")
+        $(".answered").css("display","none")
+      }
+});
+
+         $("input[name=correct]").click(function(){
+           if($(".types").val()=="1"){
+            if($("input[name=correct]:checked").length==1){
+
+            }else{
+              $("input[name=correct]").prop("checked",false);
+              alert("您选择的是单选题！！！");
+            }
+           }else if($(".types").val()=="2"){
+             return true;
+           }
+         })
+
+
+//   ajax数据处理
+    $(".bg-main").click(function(){
+     if($(this).attr("attr")=="btn1"){
+        new Promise(function(reslove,reject){
+          var data=new FormData($("#form1")[0]);
+          $.ajax({
+            url:"/admin/addQue",
+            type:"post",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:data,
+            success:function(e){
+              if(e){
+                $("input[name=q_id]").val(e);
+                reslove();
+              }
+            }
+          })
+        }).then(function(){
+          return new Promise(function(reslove,reject){
+            var data=new FormData($("#upFile")[0]);
+            $.ajax({
+              url:"/admin/addPicture",
+              type:"post",
+              async: false,
+              cache: false,
+              contentType:false,
+              processData:false,
+              data:data,
+              success:function(e){
+                if(e){
+                  reslove();
+                }
+              }
+            })
+          })
+        }).then(function(){
+            var data=new FormData($("#form4")[0]);
+            $.ajax({
+              url:"/admin/addAnalysis",
+              type:"post",
+              async: false,
+              cache: false,
+              contentType: false,
+              processData: false,
+              data:data,
+              success:function(e){
+                if(e){
+                  alert("添加试题成功!!!");
+                  location.href="/admin/addQuestion";
+                }
+              }
+            });
+        });
+     }else{
+    new Promise(function(reslove,reject){
+     var data=new FormData($("#form1")[0]);
+            $.ajax({
+              url:"/admin/addQue",
+              type:"post",
+              async: false,
+              cache: false,
+              contentType: false,
+              processData: false,
+              data:data,
+              success:function(e){
+                  if(e){
+                    $("input[name=q_id]").val(e);
+                    reslove();
+                  }
+               }
+            })
+        }).then(function(){
+            return new Promise(function(reslove,reject){
+              var data=new FormData($("#form2")[0]);
+              $.ajax({
+                url:"/admin/addOption",
+                type:"post",
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                data:data,
+                success:function(e){
+                  reslove();
+                }
+              });
+            })
+        }).then(function(){
+          return new Promise(function(reslove,reject){
+            var data=new FormData($("#form4")[0]);
+            $.ajax({
+              url:"/admin/addAnalysis",
+              type:"post",
+              async: false,
+              cache: false,
+              contentType:false,
+              processData:false,
+              data:data,
+              success:function(e){
+                if(e){
+                  reslove();
+                }
+              }
+            })
+          })
+        }).then(function(){
+      return new Promise(function(reslove,reject){
+        var data=new FormData($("#upFile")[0]);
+        $.ajax({
+          url:"/admin/addPicture",
+          type:"post",
+          async: false,
+          cache: false,
+          contentType:false,
+          processData:false,
+          data:data,
+          success:function(e){
+            if(e){
+              reslove();
+            }
+          }
+        })
+      })
+    }).then(function(){
+          var data=new FormData($("#form3")[0]);
+          $.ajax({
+            url:"/admin/addSolution",
+            type:"post",
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data:data,
+            success:function(e){
+              if(e){
+                alert("添加试题成功!!!");
+                location.href="/admin/addQuestion";
+              }
+            }
+          })
+        });
+     }
+    });
+
+
+
+    $(".container .right").css("display","none");
+    $(".container .right").eq(0).css("display","block");
+     $(".container .left").click(function(){
+       var index=$(this).attr("big");
+       for(var j=0;j< $(".container .right").length;j++){
+            if($(".container .right").eq(j).attr("main")==index){
+              $(".container .right").css("display","none");
+              $(".container .right").eq(j).css("display","block");
+            }
+       }
+     })
+
+  });
+</script>
+</html>
