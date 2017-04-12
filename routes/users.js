@@ -270,6 +270,7 @@ router.use("/editDelete",function(req,res,next){
 
 
 
+
 //阶段管理
 
 router.use('/editStage',function(req,res,next){
@@ -284,20 +285,20 @@ router.use('/showStage',function(req,res,next){
 router.use('/addStage',function(req,res,next){
 
   var name=req.body.name;
-  var sid=req.body.sid;
-  var del=req.body.del;
+  var sid=req.body.id;
 
-  pool.query(`insert into stage (name,s_id,del) values ('${name}','${sid}','${del}') `,function(error,rows,field){
+  pool.query(`insert into stage (name,s_id) values ('${name}','${sid}') `,function(error,rows,field){
     if(error){
       res.send("数据储存出现错误！！");
     }else{
-      res.redirect('/admin/editStage');
+      //res.redirect('/admin/editStage');
+      res.json(rows.insertId);
     }
   })
 });
 router.use('/deleteStage',function(req,res){
 
-  pool.query('delete from stage where id in ('+req.body.id+')',function(err, rows) {
+  pool.query('delete from stage where id in ('+req.body.ids+')',function(err, rows) {
     res.json({state:'ok'});
   })
 });
@@ -309,12 +310,10 @@ router.use('/updateStage',function(req,res){
   })
 });
 router.use('/addZiStage',function(req,res,next){
-  console.log(req);
   var name='';
   var sid=req.body.sid;
   var del=req.body.del;
   pool.query(`insert into stage (name,s_id,del) values ('${name}','${sid}','${del}') `,function(error,rows,field){
-    console.log(rows.insertId);
     if(error){
       res.send("数据储存出现错误！！");
     }else{
@@ -322,7 +321,6 @@ router.use('/addZiStage',function(req,res,next){
     }
   })
 });
-
 
 
 
