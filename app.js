@@ -67,4 +67,7 @@ app.use('/teacher', teacher);
 //  res.status(err.status || 500);
 //  res.render('error');
 //});
+process.on('uncaughtException', (exception)=> {
+  console.log(exception.message);
+});
 app.listen(2000);
