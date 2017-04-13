@@ -277,7 +277,7 @@ router.use('/editStage',function(req,res,next){
   res.render('admin/list')
 });
 router.use('/showStage',function(req,res,next){
-  pool.query('SELECT * from stage', function(err, rows) {
+  pool.query('SELECT * from stage order by id DESC', function(err, rows) {
     res.json(rows);   //将数组发回去
   });
 
