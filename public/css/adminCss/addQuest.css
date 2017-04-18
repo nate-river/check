@@ -1,0 +1,19 @@
+.ant-form-item-label label{
+    font-size:14px;
+}
+.ant-form-item .button {
+    text-align: center;
+}
+.ant-btn{
+    margin:0 10px;
+}
+.anticon-delete:before {
+    font-size: 14px;
+    cursor: pointer;
+}
+.anticon-eye-o:before {
+    font-size: 16px;
+}
+.anticon-plus:before {
+    font-size: 20px;
+}

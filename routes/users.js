@@ -3,185 +3,227 @@ var multiparty = require('multiparty');
 var router = express.Router();
 var query = require("../mysql.js");
 var crypto = require('crypto');
-var pool=require("./mysql");
-var async=require("async");
+var pool = require("./mysql");
+var async = require("async");
 var moment = require('moment');//处理时间
 var upload = require("./fileuploads");  //文件上传
 var xlsx = require("node-xlsx");
 var fs = require("fs");
-var path=require("path");
-
-
-
+var path = require("path");
 /* GET users listing. */
 //试题管理
-router.use('/addQuestion', function(req, res, next) {
-  pool.getConnection(function(err,conn){
-    conn.query(`select * from type`,function(error,rows,field){
+var uploadImg = [];//保存图片filename
+//获取添加试题页面数据
+router.use('/addQuestData', (req, res, next)=> {
+  pool.getConnection(function (err, conn) {
+    conn.query(`select * from type`, function (error, rows, field) {
       conn.release();
-       pool.getConnection(function(err,conn){
-         conn.query("select * from stage where s_id=234",function(error,vals,fields){
-           if(!error){
-             conn.release();
-             pool.getConnection(function(err,conn){
-               conn.query("select * from stage",function(error,rows1,field){
-                 if(!error){
-                   conn.release();
-                   res.render("admin/add",{data:rows,data1:vals,data2:rows1});
-                 }
-               })
-             })
-           }
-         })
-       })
-    })
-  })
-});
-router.use('/addQue', function(req,res,next){
-  var form = new multiparty.Form();
-  form.parse(req, function (err, fields, files) {
-    console.log(fields);
-    var stage=fields.stage;
-    var str="";
-    for(var i=0;i<fields.stage.length;i++){
-         str+=fields.stage[i]+";";
-    }
-    stage=str.slice(0,-1);
-    pool.getConnection(function(err,conn){
-      conn.query("INSERT INTO question SET about=?,type_id=?,stage_id=?,del=?",[fields.con[0],fields.type[0],stage,fields.del[0]],function(error,rows,field){
-        conn.release();
-        if(!error){
-          res.send(JSON.stringify(rows.insertId));
-        }
+      pool.getConnection(function (err, conn) {
+        conn.query("select * from stage where s_id=234", function (error, vals, fields) {
+          if (!error) {
+            conn.release();
+            pool.getConnection(function (err, conn) {
+              conn.query("select * from stage", function (error, rows1, field) {
+                if (!error) {
+                  conn.release();
+                  res.json({data: rows, data1: vals, data2: rows1});
+                }
+              })
+            })
+          }
+        })
       })
     })
-
   })
 });
-
-
-//试题解析添加
-router.use('/addAnalysis', function(req,res,next){
-  var form = new multiparty.Form();
-  form.parse(req, function (err, fields, files) {
-    pool.getConnection(function(err,conn){
-      conn.query("INSERT INTO analysis SET q_id=?,del=?,con=?",[fields.q_id[0],fields.del[0],fields.acon[0]],function(error,vals,fields){
-        conn.release();
-        console.log(error);
-        if(!error){
-          res.send("yes");
-        }
-      });
-    });
-
-  });
+//发送添加试题页面
+router.use('/addQuestion', function (req, res, next) {
+  uploadImg = [];
+  res.render('admin/add');
 });
-//选项添加
-router.use('/addOption', function(req,res,next){
-  var form = new multiparty.Form();
-  form.parse(req, function (err, fields, files) {
-    var arr=[];
-    for(var i=0;i<fields.content.length;i++){
-      var newarr=[];
-      newarr.push(fields.q_id);
-      newarr.push(fields.del);
-      newarr.push(fields.content[i]);
-      newarr.push(i+1);
-      arr.push(newarr);
-    }
-    var sql = "INSERT INTO options (q_id,del,con,mark) VALUES ?";
-    pool.query(sql,[arr],function(error,rows,field){
-      if(!error){
-        res.send("yes");
-      }
-    })
-  });
-});
-//试题答案添加
-router.use('/addSolution', function(req,res,next){
-  var form = new multiparty.Form();
-  form.parse(req, function (err, fields, files) {
-    pool.getConnection(function(err,conn){
-       var  spl="";
-      if(fields.correct){
-        for(var i=0;i<fields.correct.length;i++){
-          spl+=fields.correct[i]+";";
-        }
-        spl=spl.slice(0,-1)?spl.slice(0,-1):"";
-      }else{
-        spl="";
-      }
-        conn.query("INSERT INTO solution SET q_id=?,del=?,correct=?",[fields.q_id[0],fields.del[0],spl],function(error,vals,fields){
-          conn.release();
-          console.log(error);
-          if(!error){
-            res.send("yes");
-          }
-        });
-    });
+//添加试题
+router.use('/addQue', function (req, res, next) {
+  var qustionId = null;
+  let data = req.body;
+  let stageId = null;
+  let idArr = [];
+  data.selectStage.forEach((v, i)=> {
+    let id = v.split("-")[1];
+    idArr.push(id);
   })
-});
-//试题图片地址添加
-router.use("/addPicture",upload.single('file'),function(req,res,next){
-     if(req.file){
-       var paths=req.file.path;
-       var filename=path.basename(paths);
-       var imgurl="/img/adminImg/"+filename;
-     }else{
-       var imgurl="noPicture"
-     }
-        pool.getConnection(function(err,conn){
-          conn.query("insert into picture set q_id=?,del=?,imgurl=?",[req.body.q_id,req.body.del,imgurl],function(error,rows,fields){
-            if(!error){
-              conn.release();
-              res.send("yes");
+  stageId = idArr.join(";");
+  //添加试题
+  pool.getConnection(function (err1, conn1) {
+    conn1.query("INSERT INTO question (about,type_id,stage_id,del) VALUES (?,?,?,0)", [data.desc, data.selectType, stageId], function (error1, rows1, field1) {
+      conn1.release();
+      if (!error1) {
+        qustionId = rows1.insertId;
+        //单选、多选
+        var j = 0;
+        var arr = [];
+        if (data.selectType == "1") {
+          j = 4
+        } else if (data.selectType == "2") {
+          j = 7;
+        } else {
+          j = 0;
+        }
+        for (var i = 1; i <= j; i++) {
+          var o = "option" + i;
+          var newarr = [];
+          newarr.push(qustionId);
+          newarr.push(0);
+          newarr.push(data[o]);
+          newarr.push(i);
+          arr.push(newarr);
+        }
+        if (arr.length > 0) {
+          var sql = "INSERT INTO options (q_id,del,con,mark) VALUES ?";
+          pool.query(sql, [arr], function (error, rows, field) {
+            if (error) {
+              res.json({
+                code: "500",
+                info: "添加选项失败"
+              })
             }
           })
+        }
+        //添加解析
+        if(data.analysis){
+          pool.getConnection(function (err, conn) {
+            conn.query("INSERT INTO analysis (q_id,del,con) VALUES (?,0,?)", [qustionId, data.analysis], function (error, vals, fields) {
+              conn.release();
+              if (error) {
+                res.json({
+                  code: "500",
+                  info: "添加解析失败"
+                })
+              }
+            });
+          });
+        }
+        //添加答案
+        pool.getConnection(function (err, conn) {
+          var answer = data.answer;
+          if (typeof(answer) == "object") {
+            answer = answer.join(";")
+          }
+          conn.query("INSERT INTO solution (q_id,del,correct) VALUES (?,?,?)", [qustionId, 0, answer], function (error, vals, fields) {
+            conn.release();
+            if (error) {
+              res.json({
+                code: "500",
+                info: "添加答案失败"
+              })
+            }
+          });
+        })
+        //添加图片
+        pool.getConnection(function (err, conn3) {
+          if (!uploadImg.length == 0) {
+            uploadImg.forEach(function (v, i) {
+              var imgSrc = "/img/adminImg/" + v;
+              conn3.query("insert into picture (q_id,del,imgurl) VALUES (?,0,?)", [qustionId, imgSrc], function (error, rows, fields) {
+                if (error) {
+                  res.json({
+                    code: "500",
+                    info: "添加图片失败"
+                  })
+                }
+              })
+            })
+          }
         });
-  });
+        res.json({
+          code: "200",
+          info: "添加试题成功"
+        })
+      } else {
+        res.json({
+          code: "500",
+          info: "添加试题失败"
+        })
+      }
+    })
+  })
+});
+//添加试题图片
+router.use("/addPicture", upload.single("file"), function (req, res) {
+  var arr = req.file.originalname.split(".");
+  var suffix = arr[arr.length - 1];
+  var timestamp = JSON.stringify(new Date());
+  var hash = crypto.createHash('md5');
+  hash.update(timestamp);
+  var name = hash.digest('hex');
+  let imgName = name + "." + suffix;
+
+  async.series([
+    function (callback) {
+      fs.createReadStream(req.file.path).pipe(fs.createWriteStream(path.resolve("./public/img/adminImg", imgName)));
+      callback(null)
+    },
+    function (callback) {
+      fs.unlink(path.resolve(req.file.path));
+      callback(null)
+    }
+  ], function () {
+    res.json({
+      code: "200",
+      info: "OK"
+    })
+    uploadImg.push(imgName);
+  })
+});
+//移除试题图片
+router.use("/removePicture", function (req, res) {
+  var index = req.body.index;
+  let imgName = uploadImg[index];
+  fs.unlink(path.resolve("./public/img/adminImg", imgName));
+  uploadImg.splice(index, 1);
+});
 
 
 //习题选项、解析、答案管理
 router.use("/editOption",function(req,res){
   pool.getConnection(function(err,conn){
-      pool.query("select * from question where del=0 order by id desc",function(error,vals,fields){
-        conn.release();
-        if(!error){
-            res.render("admin/editOption",{rows1:vals})
-        }
-      });
+    pool.query("select * from question where del=0 order by id desc",function(error,vals,fields){
+      conn.release();
+      if(!error){
+        res.render("admin/editOption",{rows1:vals})
+      }
+    });
   });
 });
 router.use("/editQuestion/:id",function(req,res,next){
-      var tid=req.params.id;
+  var tid=req.params.id;
   pool.getConnection(function(err,conn){
-      conn.query("select * from options where q_id=?",[tid],function(error,rows,fields){
-        conn.release();
-        if(!error){
-          pool.getConnection(function(err,conn){
-            conn.query("select * from analysis where q_id=?",[tid],function(error,rows1,fields){
-                if(!error){
-                  conn.release();
-                  pool.getConnection(function(err,conn){
-                    conn.query("select * from solution where q_id=?",[tid],function(error,rows2,fields){
-                      if(!error){
-                        conn.release();
-                        pool.getConnection(function(err,conn){
-                          conn.query("select * from question where id=?",[tid],function(error,rows3,fields){
-                            if(!error){
-                              conn.release();
-                              res.render("admin/editQuest",{data1:rows,data2:rows1,data3:rows2,data4:rows3});
-                            }
-                          })
-                        })
-                      }
+    conn.query("select * from options where q_id=?",[tid],function(error,rows,fields){
+      conn.release();
+      if(!error){
+        pool.getConnection(function(err,conn){
+          conn.query("select * from analysis where q_id=?",[tid],function(error,rows1,fields){
+            if(!error){
+              conn.release();
+              pool.getConnection(function(err,conn){
+                conn.query("select * from solution where q_id=?",[tid],function(error,rows2,fields){
+                  if(!error){
+                    conn.release();
+                    pool.getConnection(function(err,conn){
+                      conn.query("select * from question where id=?",[tid],function(error,rows3,fields){
+                        if(!error){
+                          conn.release();
+                          res.render("admin/editQuest",{data1:rows,data2:rows1,data3:rows2,data4:rows3});
+                        }
+                      })
                     })
-                  })
-                }
-            })
+                  }
+                })
+              })
+            }
           })
-        }
-      })
+        })
+      }
+    })
   })
 });
 //类型管理
@@ -1072,35 +1114,4 @@ router.get("/show/:c_id",function(req,res,next){
     }
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports=router;
