@@ -3,7 +3,7 @@ var pool = mysql.createPool({
     host     : 'localhost',
     user     : 'root',
     password : '',
-    database : 'uek',
+    database : 'uek-exams',
     connectionLimit:1000
 });
 
