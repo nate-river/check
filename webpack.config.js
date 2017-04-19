@@ -3,7 +3,7 @@ const path=require("path");
 module.exports={
     entry:{
         type:path.resolve("./dev/type.jsx"),
-        //addQuest:path.resolve("./dev/addQuest.jsx"),
+        addQuest:path.resolve("./dev/addQuest.jsx"),
     },
     output:{path:path.resolve("./public/js/adminJs"),filename:"[name].js"},
     module:{
