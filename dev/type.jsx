@@ -8,15 +8,9 @@ class Panel extends React.Component{
 
 	render(){
 		return(
-			<div className="panel panel-info">
-			    <div className="panel-heading">
-			         {this.props.title}
-                </div>
-                <div className="panel-body">
-	               {this.props.children}
-                </div>
-
-            </div>
+			<div>
+				{this.props.children}
+			</div>
         )
     }
 }
@@ -25,7 +19,7 @@ class Media extends React.Component{
 	constructor(props){
 		super(props);
 		this.state={
-			showChildren:true
+			showChildren:false
 		}
 		this.add=this.add.bind(this)
 		this.change=this.change.bind(this)
@@ -62,22 +56,24 @@ class Media extends React.Component{
 			  <div className="media-left">
 				{
 					this.state.showChildren?
-					(<span onClick={this.toggle} className="suo">-</span>)
+						(<span onClick={this.toggle} className="suo  icon-caret-down"></span>)
 					:
-					(<span onClick={this.toggle} className="suo">+</span>)
+						(<span onClick={this.toggle} className="suo  icon-caret-right"></span>)
 				}
 
               </div>
 			<div className="media-body">
 				<h4 className="media-heading">
 					<input type="text"
-						   defaultValue={this.props.head}
+						   defaultValue={this.props.head?this.props.head:"添加阶段"}
 						   onChange={this.change}
 						   className="form-control"/>
-							   <button type="button" className="add btn btn-info" onClick={this.add}>Add</button>
-                           <button type="button" className="delete btn btn-danger" onClick={this.d}>Delete</button>
-
-
+					<button type="button" className="add btn btn-info" onClick={this.add}>
+						<span className="icon-plus"></span>
+					</button>
+					<button type="button" className="delete btn btn-danger" onClick={this.d}>
+						<span className="icon-plus icon-remove"></span>
+					</button>
 			    </h4>
 				<div style={{display:this.state.showChildren?'block':'none'}}>
 					   {this.props.children}

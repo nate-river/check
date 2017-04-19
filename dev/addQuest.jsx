@@ -13,7 +13,7 @@ class RegistrationForm extends React.Component {
         this.state = {
             type: [],
             currentType: 0,
-            radioValue: 1,
+            radioValue: null,
             checkboxValue: null,
             previewVisible: false,
             previewImage: '',
@@ -123,6 +123,8 @@ class RegistrationForm extends React.Component {
                 if(data.code=="200"){
                     alert("添加试题成功!!!");
                     location.href = "/admin/addQuestion";
+                }else{
+                    alert("添加失败，请重新输入")
                 }
             })
         });
@@ -143,7 +145,7 @@ class RegistrationForm extends React.Component {
             radioValue: e.target.value,
         });
         this.props.form.setFieldsValue({
-            answer: this.state.radioValue
+            answerRadio: this.state.radioValue
         });
     }
 
@@ -151,6 +153,9 @@ class RegistrationForm extends React.Component {
         this.setState(
             {checkboxValue: checkedValues}
         );
+        this.props.form.setFieldsValue({
+            answerCheckbox: this.state.checkboxValue
+        });
     }
 
     render() {
@@ -209,7 +214,7 @@ class RegistrationForm extends React.Component {
                 label={`选项${i+1}`}
                 key={`checkbox-${i}`}
             >
-                {getFieldDecorator(`option${i + 1}`)(
+                {getFieldDecorator(`option${i + 5}`)(
                     <Input />
                 )}
             </FormItem>
@@ -304,7 +309,7 @@ class RegistrationForm extends React.Component {
                             {...formItemLayout}
                             label="试题答案"
                         >
-                            {getFieldDecorator('answer', {
+                            {getFieldDecorator('answerRadio', {
                                 rules: [
                                     {required: true, message: '请选择答案'},
                                 ],
@@ -325,7 +330,7 @@ class RegistrationForm extends React.Component {
                             {...formItemLayout}
                             label="试题答案"
                         >
-                            {getFieldDecorator('answer', {
+                            {getFieldDecorator('answerCheckbox', {
                                 rules: [
                                     {required: true, message: '请选择答案'},
                                 ],

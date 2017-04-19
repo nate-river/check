@@ -4,20 +4,42 @@
 
 .media-heading .add{
 	position: absolute;
-	right:80px;
-	top:1px;
+	right:45px;
+	top:0px;
+	font-weight: bold;
 }
 .media-heading .delete{
 	position: absolute;
-	right:1px;
-	top:1px;
+	right:0px;
+	top:0px;
 	line-height: 20px;
+	font-weight: bold;
 }
 .media-left .suo{
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 20px;
+	display: block;
+	font-size: 12px;
+	line-height: 34px;
+	min-width: 15px;
+	text-align: center;
+	cursor: pointer;
 }
 #butt{
 	height:30px;
+}
+.iconfont{
+	font-family:"iconfont";
+}
+.media, .media .media{
+	margin-top:0 !important;
+}
+.media-heading {
+	margin-bottom: 10px !important;
+}
+.icon-plus.icon-remove{
+	display: block;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
