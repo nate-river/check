@@ -798,9 +798,10 @@ router.use("/addstudentdata", function (req, res, next) {
                  * 年 +  月份 +  专业 +   班级   +   学生
                  *  4  +  2   +  1    +  4    +    3   =  14
                  * */
-                index = (rows.length + 1).toString();
+                index=rows[0].stdnum.substr(-1,3);
+                index++;
                 if (index < 10 && index >= 0) {
-                    index = "00" + index;
+                    index="00"+index;
                 } else if (index >= 10 && index < 100) {
                     index = "0" + index;
                 }
@@ -811,7 +812,8 @@ router.use("/addstudentdata", function (req, res, next) {
                 index = "001";
                 stdnum = y + m + genre + c_id + index;
             }
-            query(`insert into student (c_id,sname,phone,del,stdnum,pass,addtime,genre) values ('${c_id}','${sname}','${phone}',0,'${stdnum}','${pass1}','${addtime}','${genre}')`, function (error, rows, field) {
+            var sql=`insert into student (c_id,sname,phone,del,stdnum,pass,addtime,genre) values ('${c_id}','${sname}','${phone}',0,'${stdnum}','${pass1}','${addtime}','${genre}')`;
+            query(sql, function (error, rows, field) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -823,7 +825,7 @@ router.use("/addstudentdata", function (req, res, next) {
 });
 router.use("/studentdel", function (req, res, next) {
     var id = req.body.id;
-    query(`update student set del=1 where id='${id}'`, function (error, rows, field) {
+    query(`delete from student where id='${id}'`, function (error, rows, field) {
         if (error) {
 
         } else {

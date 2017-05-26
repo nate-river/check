@@ -98,6 +98,23 @@
                     </div>
                 </div>
             </if>
+            <!--专业-->
+            <if condition="$iscid eq 1">
+                <div class="form-group">
+                    <div class="label">
+                        <label>专业：</label>
+                    </div>
+                    <div class="field">
+                        <select name="genre" class="input w50">
+                            <option value="">请选择分类</option>
+                            <option value="0">前端</option>
+                            <option value="1">UI</option>
+                            <option value="2">PHP</option>
+                        </select>
+                        <div class="tips"></div>
+                    </div>
+                </div>
+            </if>
             <div class="form-group">
                 <div class="label">
                     <label>姓名：</label>
