@@ -279,7 +279,6 @@ router.use('/addType', function (req, res, next) {
 
 
 router.use('/deleteType', function (req, res) {
-    console.log(req.body)
     pool.query('delete from type where id in (' + req.body.id + ')', function (err, rows) {
         res.json({state: 'ok'});
     })
@@ -516,7 +515,7 @@ router.use("/addteacher", function (req, res, next) {
     var num = req.body.num;
     if (num) {
         num = num * 5;
-        query(`select * from teacher where del=0 order by id Desc limit ${num},5`, function (error, rows, field) {
+        query(`select * from teacher where del=0 order by jobnum Asc limit ${num},5`, function (error, rows, field) {
             if (error) {
                 console.log(error);
             } else {
@@ -536,7 +535,7 @@ router.use("/addteacher", function (req, res, next) {
         });
 
     } else {
-        query(`select * from teacher where del=0 order by id DESC limit 0,5`, function (error, rows1, field) {
+        query(`select * from teacher where del=0 order by jobnum ASC limit 0,5`, function (error, rows1, field) {
             if (error) {
                 console.log(error);
             } else {
@@ -563,7 +562,6 @@ router.use("/addteacher", function (req, res, next) {
 });
 router.use("/addteacherkey", function (req, res, next) {
     var tname = req.body.keywords;
-    console.log(tname);
     query(`select * from teacher where del=0 and tname='${tname}'`, function (error, rows, field) {
         if (error) {
             console.log(error);
@@ -1046,7 +1044,6 @@ router.use("/updataAdministratordata", function (req, res, next) {
 });
 
 router.use("/ceshi", function (req, res, next) {
-    console.log("测试");
     query(`SELECT a.id,a.cname,b.sname FROM class as a,student as b where a.id=b.c_id`, function (error, rows, field) {
         if (error) {
             console.log(error);
