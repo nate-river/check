@@ -1,4 +1,4 @@
-$(function(){
+
 function del(id){
         if(confirm("您确定要删除吗?")){
 
@@ -181,5 +181,4 @@ function last() {
 
 $(".header .cancel").click(function(){
     window.history.go(-1);
-})
 })
