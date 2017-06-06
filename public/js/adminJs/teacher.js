@@ -72,7 +72,7 @@ function next() {
         </td>
         <td>${data[i].jobnum}</td>
         <td>${data[i].tname}</td>
-        <td>${data[i].cname}</td>
+        <td>${data[i].c_id}</td>
         <td>
           ${data[i].addtime}
         </td>
@@ -115,7 +115,7 @@ function last() {
         </td>
         <td>${data[i].jobnum}</td>
         <td>${data[i].tname}</td>
-        <td>${data[i].cname}</td>
+        <td>${data[i].c_id}</td>
         <td>
           ${data[i].addtime}
         </td>
