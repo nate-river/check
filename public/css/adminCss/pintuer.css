@@ -299,7 +299,6 @@ input[disabled],input[readonly],textarea[disabled],textarea[readonly],select[dis
 textarea.input{height:auto;}
 .input-note, .label .float-right{color:#999;font-size:12px;padding-top:2px;line-height:18px;}
 .field{position:relative;}
-.form-group{padding-bottom:10px;}
 .field-icon .input{text-indent:25px;}
 .field-icon .icon{position:absolute;left:0;right:auto;width:34px;height:34px;text-align:center;line-height:34px;font-size:16px;font-weight:normal;}
 .field-icon-right .icon{position:absolute;right:0;top:0;width:34px;height:34px;text-align:center;line-height:34px;font-size:16px;font-weight:normal;}
